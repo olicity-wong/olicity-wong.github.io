@@ -5,9 +5,9 @@
   <subtitle>菜鸡与代码的日常</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://yoursite.com/"/>
+  <link href="https://wangtomorrow.github.io/"/>
   <updated>2018-09-07T11:03:23.375Z</updated>
-  <id>http://yoursite.com/</id>
+  <id>https://wangtomorrow.github.io/</id>
   
   <author>
     <name>Olicity</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>Hello World</title>
-    <link href="http://yoursite.com/post/4a17b156.html"/>
-    <id>http://yoursite.com/post/4a17b156.html</id>
+    <link href="https://wangtomorrow.github.io/post/4a17b156.html"/>
+    <id>https://wangtomorrow.github.io/post/4a17b156.html</id>
     <published>2018-09-07T01:27:29.223Z</published>
     <updated>2018-09-07T11:03:23.375Z</updated>
     
@@ -33,7 +33,7 @@
     </summary>
     
     
-      <category term="test" scheme="http://yoursite.com/tags/test/"/>
+      <category term="test" scheme="https://wangtomorrow.github.io/tags/test/"/>
     
   </entry>
   
