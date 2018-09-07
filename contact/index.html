@@ -240,6 +240,22 @@
   
 
   
+  <div id="gitment-ctn"></div> 
+<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: "http://yoursite.com/contact/index.html",
+  owner: 'Wangtomorrow',
+  repo: 'Wangtomorrow.github.io',
+  oauth: {
+    client_id: 'caff35e2967243ab4ef1',
+    client_secret: '22e85bc9f7795eea44bd9dc4f6e028d1717cf2e7',
+  },
+})
+gitment.render('gitment-ctn')
+</script>
+  
 
 
           </div>
