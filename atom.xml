@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://wangtomorrow.github.io/"/>
-  <updated>2018-09-11T06:08:54.936Z</updated>
+  <updated>2018-09-12T08:16:57.224Z</updated>
   <id>https://wangtomorrow.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>spring学习记录(一)</title>
+    <link href="https://wangtomorrow.github.io/post/61f45dcf.html"/>
+    <id>https://wangtomorrow.github.io/post/61f45dcf.html</id>
+    <published>2018-09-11T06:45:18.000Z</published>
+    <updated>2018-09-12T08:16:57.224Z</updated>
+    
+    <content type="html"><![CDATA[<p>&emsp;最近在做后端的开发，用到了spring，借这个机会给spring捋一遍吧。东西有点多，需要点时间，抽空学。记录(一)主要是写一点spring最基础的东西。<br><a id="more"></a></p><h2 id="一、Spring概述"><a href="#一、Spring概述" class="headerlink" title="一、Spring概述"></a>一、Spring概述</h2><h3 id="1-简介"><a href="#1-简介" class="headerlink" title="1.简介"></a>1.简介</h3><p>&emsp;Spring是一个基于 <strong>控制反转（IOC）</strong> 和 <strong>面向切面（AOP）</strong> 的结构J2EE系统的框架。从简单性、可测试性和松耦合的角度而言，任何Java应用都可以从Spring中受益。<br>&emsp;控制反转(IOC)是一个通用概念，Spring最认同的技术是控制反转的 <strong>依赖注入（DI）</strong> 模式。简单地说就是拿到的对象的属性，已经被注入好相关值了，直接使用即可。<br>&emsp;面向切面编程（AOP），一个程序中跨越多个点的功能被称为横切关注点，这些横切关注点在概念上独立于应用程序的业务逻辑。Spring 框架的 AOP 模块提供了面向方面的程序设计实现，可以定义诸如方法拦截器和切入点等，从而使实现功能的代码彻底的解耦出来。  </p><h3 id="2-Spring关键策略"><a href="#2-Spring关键策略" class="headerlink" title="2.Spring关键策略"></a>2.Spring关键策略</h3><pre><code>* 基于POJO的轻量级和最小侵入性编程* 通过依赖注入和面向接口实现松耦合* 基于切面和惯例进行声明式编程* 通过切面和模板减少样板式代码</code></pre><h3 id="3-Spring优点"><a href="#3-Spring优点" class="headerlink" title="3.Spring优点"></a>3.Spring优点</h3><pre><code>*方便解耦，简化开发 （高内聚低耦合）     Spring就是一个大工厂（容器），可以将所有对象创建和依赖关系维护，交给Spring管理     spring工厂是用于生成bean*AOP编程的支持     Spring提供面向切面编程，可以方便的实现对程序进行权限拦截、运行监控等功能    声明式事务的支持     只需要通过配置就可以完成对事务的管理，而无需手动编程*方便程序的测试     Spring对Junit4支持，可以通过注解方便的测试Spring程序*方便集成各种优秀框架     Spring不排斥各种优秀的开源框架，其内部提供了对各种优秀框架（如：Struts、Hibernate、MyBatis、Quartz等）的直接支持*降低JavaEE API的使用难度     Spring 对JavaEE开发中非常难用的一些API（JDBC、JavaMail、远程调用等），都提供了封装，使这些API应用难度大大降低</code></pre><h2 id="二、控制反转（IOC）"><a href="#二、控制反转（IOC）" class="headerlink" title="二、控制反转（IOC）"></a>二、控制反转（IOC）</h2><h3 id="1-概述"><a href="#1-概述" class="headerlink" title="1.概述"></a>1.概述</h3><p>&emsp;代码之间的 <strong>耦合性</strong> 具有两面性。耦合是必须的，但应小心谨慎的管理。<br>&emsp;DI会将所以来的关系自动交给目标对象，而不是让对象自己去获取依赖。– <strong>松耦合</strong></p><h3 id="2-获取对象的方式进行比较"><a href="#2-获取对象的方式进行比较" class="headerlink" title="2.获取对象的方式进行比较"></a>2.获取对象的方式进行比较</h3><p>传统方式：<br>通过new关键字主动创建一个对象<br>IOC方式：<br>对象的生命周期由Spring来管理，直接从Spring那里去获取一个对象。 IOC是反转控制 (Inversion Of Control)的缩写，就像控制权从本来在自己手里，交给了Spring。</p><h3 id="3-装配"><a href="#3-装配" class="headerlink" title="3.装配"></a>3.装配</h3><p>&emsp;创建应用组件之间协作的行为通常称为装配。常用XML装配方式。Spring配置文件。</p><pre><code class="xml">*使用构造器进行配置    <span class="tag">&lt;<span class="name">bean</span>&gt;</span> 定义JavaBean，配置需要创建的对象    id/name ：用于之后从spring容器获得实例时使用的    class ：需要创建实例的全限定类名    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"c"</span> <span class="attr">class</span>=<span class="string">"pojo.Category"</span>&gt;</span>        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"name"</span> <span class="attr">value</span>=<span class="string">"category 1"</span> /&gt;</span> <span class="comment">&lt;!--category对象--&gt;</span>    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span>    <span class="comment">&lt;!--创建product对象的时候注入了一个category对象，使用ref--&gt;</span>    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">name</span>=<span class="string">"p"</span> <span class="attr">class</span>=<span class="string">"pojo.Product"</span>&gt;</span> <span class="comment">&lt;!--product类中添加category对象的set&amp;get方法--&gt;</span>        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"name"</span> <span class="attr">value</span>=<span class="string">"product1"</span> /&gt;</span>   <span class="comment">&lt;!--product对象--&gt;</span>        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"category"</span> <span class="attr">ref</span>=<span class="string">"c"</span> /&gt;</span>    <span class="comment">&lt;!--为product对象注入category对象--&gt;</span>    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span>*使用注解的方式进行配置    xml中添加  <span class="tag">&lt;<span class="name">context:annotation-config</span>/&gt;</span> 注释掉注入category        *@Autowired注解方法            在Product.java的category属性前加上@Autowired注解            @Autowired            private Category category;            或者            @Autowired            public void setCategory(Category category)         *@Resource            @Resource(name="c")            private Category category;*对bean进行注解配置    直接xml中添加  <span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">"pojo"</span>/&gt;</span>    就是告知spring，所有的bean都在pojo包下    通过@Component注解        在类前加入  @Component("c")  表明此类是bean        因为配置从applicationContext.xml中移出来了，所以属性初始化放在属性声明上进行了。        private String name="product 1";        private String name="category 1";        同时@Autowired也需要在Product.java的category属性前加上*Spring javaConfig</code></pre><p><a href="https://github.com/Wangtomorrow/Spring/tree/master/spring" target="_blank" rel="noopener">源码参照</a></p><h2 id="三、面向切面（AOP）"><a href="#三、面向切面（AOP）" class="headerlink" title="三、面向切面（AOP）"></a>三、面向切面（AOP）</h2><pre><code>未完待续。。。先整kafka。。。。</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&amp;emsp;最近在做后端的开发，用到了spring，借这个机会给spring捋一遍吧。东西有点多，需要点时间，抽空学。记录(一)主要是写一点spring最基础的东西。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="spring" scheme="https://wangtomorrow.github.io/tags/spring/"/>
+    
+      <category term="笔记" scheme="https://wangtomorrow.github.io/tags/%E7%AC%94%E8%AE%B0/"/>
+    
+      <category term="IOC" scheme="https://wangtomorrow.github.io/tags/IOC/"/>
+    
+      <category term="DI" scheme="https://wangtomorrow.github.io/tags/DI/"/>
+    
+  </entry>
   
   <entry>
     <title>开始吧</title>
