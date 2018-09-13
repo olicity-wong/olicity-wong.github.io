@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://wangtomorrow.github.io">
-  <title>Archives | Olicity Forever</title>
+  <title>Kafka及Spring&amp;Kafka整合 | Olicity Forever</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Olicity Forever">
-<meta property="og:url" content="https://wangtomorrow.github.io/archives/index.html">
+  <meta name="description" content="&amp;emsp;由于某项目的消息队列使用了Spring整合Kafka，开发中我需要使用kafka客户端模拟生产者和消费者。简单了解了一下Kafka，扫盲贴，先标记一下，日后再深入学习。">
+<meta name="keywords" content="Kafka,Springboot Kafka,笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kafka及Spring&amp;Kafka整合">
+<meta property="og:url" content="https://wangtomorrow.github.io/post/85675a3e.html">
 <meta property="og:site_name" content="Olicity Forever">
+<meta property="og:description" content="&amp;emsp;由于某项目的消息队列使用了Spring整合Kafka，开发中我需要使用kafka客户端模拟生产者和消费者。简单了解了一下Kafka，扫盲贴，先标记一下，日后再深入学习。">
 <meta property="og:locale" content="zh-CN.yml">
+<meta property="og:updated_time" content="2018-09-13T10:28:57.804Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Olicity Forever">
+<meta name="twitter:title" content="Kafka及Spring&amp;Kafka整合">
+<meta name="twitter:description" content="&amp;emsp;由于某项目的消息队列使用了Spring整合Kafka，开发中我需要使用kafka客户端模拟生产者和消费者。简单了解了一下Kafka，扫盲贴，先标记一下，日后再深入学习。">
   
     <link rel="alternative" href="/atom.xml" title="Olicity Forever" type="application/atom+xml">
   
@@ -154,36 +159,231 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Kafka及Spring-Kafka整合" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/post/85675a3e.html" class="archive-article-date">
-  	<time datetime="2018-09-13T08:05:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-09-13</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/post/85675a3e.html">Kafka及Spring&amp;Kafka整合</a>
+    <h1 class="article-title" itemprop="name">
+      Kafka及Spring&amp;Kafka整合
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/post/85675a3e.html" class="archive-article-date">
+  	<time datetime="2018-09-13T08:05:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-09-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>&emsp;由于某项目的消息队列使用了Spring整合Kafka，开发中我需要使用kafka客户端模拟生产者和消费者。简单了解了一下Kafka，扫盲贴，先标记一下，日后再深入学习。<br><a id="more"></a></p>
+<h2 id="一、Kafka简介"><a href="#一、Kafka简介" class="headerlink" title="一、Kafka简介"></a>一、Kafka简介</h2><h3 id="1-1-简介"><a href="#1-1-简介" class="headerlink" title="1.1 简介"></a>1.1 简介</h3><p>&emsp; kafka是一种高吞吐量的分布式发布订阅消息系统，它可以处理消费者规模的网站中的所有动作流数据。这种动作（网页浏览，搜索和其他用户的行动）是在现代网络上的许多社会功能的一个关键因素。这些数据通常是由于吞吐量的要求而通过处理日志和日志聚合来解决。<br>&emsp;在大数据系统中，常常会碰到一个问题，整个大数据是由各个子系统组成，数据需要在各个子系统中高性能，低延迟的不停流转。传统的企业消息系统并不是非常适合大规模的数据处理。为了已在同时搞定在线应用（消息）和离线应用（数据文件，日志）Kafka就出现了。<br>&emsp;简单点概括一下：Kafka是一个分布式的，可划分的，高性能，低延迟的，冗余备份的持久性的日志服务。它主要用于处理活跃的流式数据。</p>
+<h3 id="1-2-特点"><a href="#1-2-特点" class="headerlink" title="1.2 特点"></a>1.2 特点</h3><pre><code>* 高吞吐量
+* 可进行持久化操作
+* 分布式
+</code></pre><h3 id="1-3-组件"><a href="#1-3-组件" class="headerlink" title="1.3 组件"></a>1.3 组件</h3><p>&emsp;Topic，Broker，Partition，Message，Producer，Consumer,Zookpeer</p>
+<h4 id="1-3-1-名词解释"><a href="#1-3-1-名词解释" class="headerlink" title="1.3.1 名词解释"></a>1.3.1 名词解释</h4><pre><code>服务：
+Topic：主题，Kafka处理的消息的不同分类。
+Broker：消息代理，Kafka集群中的一个kafka服务节点称为一个broker，主要存储消息数据。存在硬盘中。每个topic都是有分区的。
+Partition：Topic物理上的分组，一个topic在broker中被分为1个或者多个partition，分区在创建topic的时候指定。
+Message：消息，是通信的基本单位，每个消息都属于一个partition
+服务相关：
+Producer：消息和数据的生产者，向Kafka的一个topic发布消息。
+Consumer：消息和数据的消费者，定于topic并处理其发布的消息。
+Zookeeper：协调kafka的正常运行。
+</code></pre><h3 id="1-4-应用场景"><a href="#1-4-应用场景" class="headerlink" title="1.4 应用场景"></a>1.4 应用场景</h3><p>构建实时的流数据管道，可靠地获取系统和应用程序之间的数据。<br>构建实时流的应用程序，对数据流进行转换或反应。  </p>
+<h2 id="二、Kafka搭建"><a href="#二、Kafka搭建" class="headerlink" title="二、Kafka搭建"></a>二、Kafka搭建</h2><h3 id="2-1-安装"><a href="#2-1-安装" class="headerlink" title="2.1 安装"></a>2.1 安装</h3><p>&emsp;教程很多，就不写了。 </p>
+<h3 id="2-2-配置"><a href="#2-2-配置" class="headerlink" title="2.2 配置"></a>2.2 配置</h3><p>&emsp;配置文件放在kafka下config下</p>
+<pre><code>* consumer.properites 消费者配置
+* producer.properties 生产者配置
+* server.properties kafka服务器的配置
+    broker.id 申明当前kafka服务器在集群中的唯一ID，需配置为integer,并且集群中的每一个kafka服务器的id都应是唯一的
+    listeners 申明此kafka服务器需要监听的端口号，如果是在本机上跑虚拟机运行可以不用配置本项，默认会使用localhost的地址，如果是在远程服务器上运行则必须配置，例如：
+              listeners=PLAINTEXT:// 192.168.180.128:9092。并确保服务器的9092端口能够访问
+    zookeeper.connect 申明kafka所连接的zookeeper的地址 ，需配置为zookeeper的地址
+</code></pre><p>&emsp;上面配置文件中listeners的配置尤其注意，刚开始整的时候，没注意自己编写producer和cusmer时报错，如下：</p>
+<pre><code>Connection to node -1 could not be established. Broker may not be available.
+</code></pre><p>&emsp;就是因为配置文件中的PLAINTEXT跟我请求的内容不同。</p>
+<p>&emsp;具体配置教程很多，也不写了。</p>
+<h2 id="三、Kafka操作"><a href="#三、Kafka操作" class="headerlink" title="三、Kafka操作"></a>三、Kafka操作</h2><h3 id="3-1-Topic操作"><a href="#3-1-Topic操作" class="headerlink" title="3.1 Topic操作"></a>3.1 Topic操作</h3><h4 id="3-1-1-创建Topic"><a href="#3-1-1-创建Topic" class="headerlink" title="3.1.1 创建Topic"></a>3.1.1 创建Topic</h4><pre><code>kafka-topics.sh --create --topic hbase --zookeeper ip1:port --partitions 3 --replication-factor 1
+创建topic过程的问题，replication-factor个数不能超过broker的个数
+创建topic后，可以在../data/kafka目录查看到分区的目录
+</code></pre><h4 id="3-1-2-查看Topic列表"><a href="#3-1-2-查看Topic列表" class="headerlink" title="3.1.2 查看Topic列表"></a>3.1.2 查看Topic列表</h4><pre><code>kafka-topics.sh --list --zookeeper ip:port
+</code></pre><h4 id="3-1-3-查看某一个具体的Topic"><a href="#3-1-3-查看某一个具体的Topic" class="headerlink" title="3.1.3 查看某一个具体的Topic"></a>3.1.3 查看某一个具体的Topic</h4><pre><code>kafka-topics.sh --describe xxx --zookeeper ip:port
+</code></pre><h4 id="3-1-4-修改Topic"><a href="#3-1-4-修改Topic" class="headerlink" title="3.1.4 修改Topic"></a>3.1.4 修改Topic</h4><pre><code>kafka-topics.sh --alter --topic topic-test --zookeeper ip:port --partitions 3
+不能修改replication-factor，以及只能对partition个数进行增加，不能减少
+</code></pre><h4 id="3-1-5-删除Topic"><a href="#3-1-5-删除Topic" class="headerlink" title="3.1.5 删除Topic"></a>3.1.5 删除Topic</h4><pre><code>kafka-topics.sh --delete --topic topic-test --zookeeper ip:port
+彻底删除一个topic，需要在server.properties中配置delete.topic.enable=true，否则只是标记删除
+配置完成之后，需要重启kafka服务。
+</code></pre><h3 id="3-2-生产者操作"><a href="#3-2-生产者操作" class="headerlink" title="3.2 生产者操作"></a>3.2 生产者操作</h3><pre><code>sh kafka-console-producer.sh --broker-list ip1:port,ip2:port,ip3:port --sync --topic kafka-topic-test
+生产数据的时候需要指定：当前数据流向哪个broker，以及哪一个topic
+</code></pre><h3 id="3-3-消费者操作"><a href="#3-3-消费者操作" class="headerlink" title="3.3 消费者操作"></a>3.3 消费者操作</h3><pre><code>sh kafka-console-consumer.sh --zookeeper ip1:port,ip2:port,ip3:port --topic kafka-topic-test --from-beginning
+--from-begining 获取最新以及历史数据
+
+黑白名单（暂时未用到）
+--blacklist 后面跟需要过滤的topic的列表，使用&quot;,&quot;隔开，意思是除了列表中的topic之外，都能接收其它topic的数据
+--whitelist 后面跟需要过滤的topic的列表，使用&quot;,&quot;隔开，意思是除了列表中的topic之外，都不能接收其它topic的数据
+</code></pre><h2 id="四、Springboot整合Kafka"><a href="#四、Springboot整合Kafka" class="headerlink" title="四、Springboot整合Kafka"></a>四、Springboot整合Kafka</h2><p>这个只是个人使用的简单的测试环境搭建，可能有很多地方有问题，以后深入学习时再检查。</p>
+<h3 id="4-1-整合"><a href="#4-1-整合" class="headerlink" title="4.1 整合"></a>4.1 整合</h3><p>&emsp;springboot集成kafka的默认配置都在org.springframework.boot.autoconfigure.kafka包里面。直接使用即可。flag=深入学习kafka。</p>
+<h3 id="4-2-pom-xml配置"><a href="#4-2-pom-xml配置" class="headerlink" title="4.2 pom.xml配置"></a>4.2 pom.xml配置</h3><pre><code>&lt;dependency&gt;
+   &lt;!--引入spring和kafka整合的jar--&gt;
+            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-cloud-starter-stream-kafka&lt;/artifactId&gt;
+            &lt;exclusions&gt;
+                &lt;exclusion&gt;
+                    &lt;groupId&gt;org.apache.kafka&lt;/groupId&gt;
+                    &lt;artifactId&gt;kafka_2.11&lt;/artifactId&gt;
+                &lt;/exclusion&gt;
+                &lt;exclusion&gt;
+                    &lt;groupId&gt;org.apache.kafka&lt;/groupId&gt;
+                    &lt;artifactId&gt;kafka-clients&lt;/artifactId&gt;
+                &lt;/exclusion&gt;
+                &lt;exclusion&gt;
+                    &lt;groupId&gt;org.springframework.kafka&lt;/groupId&gt;
+                    &lt;artifactId&gt;spring-kafka&lt;/artifactId&gt;
+                &lt;/exclusion&gt;
+            &lt;/exclusions&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-cloud-starter-hystrix&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.apache.kafka&lt;/groupId&gt;
+            &lt;artifactId&gt;kafka_2.11&lt;/artifactId&gt;
+            &lt;version&gt;1.0.1&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-cloud-task-core&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.kafka&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-kafka&lt;/artifactId&gt;
+            &lt;version&gt;1.3.5.RELEASE&lt;/version&gt;&lt;!--$NO-MVN-MAN-VER$--&gt;
+            &lt;/dependency&gt;
+        &lt;dependency&gt;
+</code></pre><h3 id="4-3-Producer配置"><a href="#4-3-Producer配置" class="headerlink" title="4.3 Producer配置"></a>4.3 Producer配置</h3><pre><code>@Configuration
+@EnableKafka
+public class KafkaProducer {
+
+    public Map&lt;String, Object&gt; producerConfigs() {
+        Map&lt;String, Object&gt; props = new HashMap&lt;&gt;();
+        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, KafkaConfig.BOOTSTRAP_SERVERS);
+        props.put(ProducerConfig.RETRIES_CONFIG, KafkaConfig.PRODUCER_RETRIES);
+        props.put(ProducerConfig.BATCH_SIZE_CONFIG, KafkaConfig.PRODUCER_BATCH_SIZE);
+        props.put(ProducerConfig.LINGER_MS_CONFIG, KafkaConfig.PRODUCER_LINGER_MS);
+        props.put(ProducerConfig.BUFFER_MEMORY_CONFIG, KafkaConfig.PRODUCER_BUFFER_MEMORY);
+        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+        props.put(&quot;advertised.host.name&quot;,KafkaConfig.BOOTSTRAP_SERVERS);
+        props.put(ConsumerConfig.GROUP_ID_CONFIG, &quot;1&quot;);
+
+        System.out.println(&quot;KafkaConfig.BOOTSTRAP_SERVERS:&quot;+KafkaConfig.BOOTSTRAP_SERVERS);
+        return props;
+    }
+
+    /** 获取工厂 */
+    public ProducerFactory&lt;String, String&gt; producerFactory() {
+        return new DefaultKafkaProducerFactory&lt;&gt;(producerConfigs());
+    }
+
+    /** 注册实例 */
+    @Bean
+    public KafkaTemplate&lt;String, String&gt; kafkaTemplate() {
+        return new KafkaTemplate&lt;&gt;(producerFactory());
+    }
+
+}
+</code></pre><h3 id="4-4-使用生产者"><a href="#4-4-使用生产者" class="headerlink" title="4.4 使用生产者"></a>4.4 使用生产者</h3><pre><code>@Autowired
+private KafkaTemplate&lt;String, String&gt; kafkaTemplate;
+kafkaTemplate.send(&quot;kafka-topic-test&quot;, &quot;helloWorld&quot;);
+</code></pre><h3 id="4-5-Consumer配置"><a href="#4-5-Consumer配置" class="headerlink" title="4.5 Consumer配置"></a>4.5 Consumer配置</h3><pre><code>@Configuration
+@EnableKafka
+public class KafkaConsumer {
+    private final static Logger log = LoggerFactory.getLogger(KafkaConsumer .class);
+
+    @KafkaListener(topics = {&quot;kafka-topic-test&quot;})
+    public void consume(ConsumerRecord&lt;?, ?&gt; record) {
+        String topic = record.topic();
+        String value = record.value().toString();
+
+        System.out.println(&quot;partitions:&quot;+record.partition()+&quot;,&quot;+&quot;offset:&quot;+record.offset()+&quot;,value=&quot;+value);
+        MqConsumerRunnable runnable = new MqConsumerRunnable(topic,value);
+        executor.execute(runnable);
+    }
+
+    public Map&lt;String, Object&gt; consumerConfigs() {
+        Map&lt;String, Object&gt; props = new HashMap&lt;&gt;();
+        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, KafkaConfig.BOOTSTRAP_SERVERS);
+        props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, true);
+        props.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, &quot;100&quot;);
+        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+        props.put(ConsumerConfig.GROUP_ID_CONFIG, &quot;1&quot;);
+        props.put(&quot;auto.offset.reset&quot;, &quot;latest&quot;);// 一般配置earliest 或者latest 值
+
+        return props;
+    }
+
+    /** 获取工厂 */
+    public ConsumerFactory&lt;String, String&gt; consumerFactory() {
+        return new DefaultKafkaConsumerFactory&lt;&gt;(consumerConfigs());
+    }
+
+    /** 获取实例 */
+    @Bean
+    public KafkaListenerContainerFactory&lt;ConcurrentMessageListenerContainer&lt;String, String&gt;&gt; kafkaListenerContainerFactory() {
+        ConcurrentKafkaListenerContainerFactory&lt;String, String&gt; factory = new ConcurrentKafkaListenerContainerFactory&lt;&gt;();
+        factory.setConsumerFactory(consumerFactory());
+        factory.setConcurrency(3);
+        factory.getContainerProperties().setPollTimeout(3000);
+        return factory;
+    }
+
+}
+</code></pre><h3 id="4-6-使用消费者"><a href="#4-6-使用消费者" class="headerlink" title="4.6 使用消费者"></a>4.6 使用消费者</h3><pre><code>public class KafkaMessageListener implements MessageListener&lt;String, String&gt; {
+
+    private static Logger LOG = LoggerFactory.getLogger(KafkaMessageListener.class);
+    @Autowired
+    private AppProperties appProperties;
+
+    @Override
+    public void onMessage(ConsumerRecord&lt;String, String&gt; data) {
+        LOG.info(&quot;消费消息topic：{} value {}&quot;, data.topic(), data.value());
+        String topic = data.topic();
+        String content = data.value();
+        //可同时监听多个topic，根据不同topic处理不同的业务
+        if (topic.equals(&quot;topica&quot;)) {           
+            LOG.info(&quot;###############topic:{} value:{}&quot; ,topic,content);
+        } else if (topic.equals(&quot;topicb&quot;)) {
+         LOG.info(&quot;###############topic:{} value:{}&quot; ,topic,content);
+        } 
+    }
+}
+</code></pre><h3 id="4-7-注意"><a href="#4-7-注意" class="headerlink" title="4.7 注意"></a>4.7 注意</h3><pre><code>kafkaTemplate.send(&quot;kafka-topic-test&quot;, &quot;helloWorld&quot;);
+@KafkaListener(topics = {&quot;kafka-topic-test&quot;})
+topic需要对应
+</code></pre><h4 id="4-8-使用"><a href="#4-8-使用" class="headerlink" title="4.8 使用"></a>4.8 使用</h4><p>&emsp;本地运行以后，到kafka服务器上可以进行消费者和生产者的模拟发送与接收信息。</p>
+<h2 id="五、总结"><a href="#五、总结" class="headerlink" title="五、总结"></a>五、总结</h2><p>&emsp;上述方法进行模拟测试，可以测试，但是总感觉问题很大，却又找不出问题，这个后期再说吧，先凑合用。<br>&emsp;有关Kafka的具体学习，后期补上。</p>
+<h2 id="六、相关链接"><a href="#六、相关链接" class="headerlink" title="六、相关链接"></a>六、相关链接</h2><p>感谢各位大佬：</p>
+<ul>
+<li><a href="https://www.cnblogs.com/yangxiaoyi/p/7359236.html" target="_blank" rel="noopener">kafka 基础知识梳理</a></li>
+<li><a href="https://www.cnblogs.com/hei12138/p/7805475.html" target="_blank" rel="noopener">kafka实战</a></li>
+<li><a href="http://blog.51cto.com/xpleaf/2090847" target="_blank" rel="noopener">kafka笔记整理</a></li>
+<li><a href="https://www.cnblogs.com/yepei/p/6197236.html" target="_blank" rel="noopener">kafka介绍</a></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -203,107 +403,84 @@
 		</ul>
 	</div>
 
-          
+      
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/post/61f45dcf.html" class="archive-article-date">
-  	<time datetime="2018-09-11T06:45:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-09-11</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/post/61f45dcf.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">spring学习记录(一)</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/post/61f45dcf.html">spring学习记录(一)</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">spring</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">IOC</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">DI</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、Kafka简介"><span class="toc-number">1.</span> <span class="toc-text">一、Kafka简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-简介"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-特点"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-组件"><span class="toc-number">1.3.</span> <span class="toc-text">1.3 组件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-1-名词解释"><span class="toc-number">1.3.1.</span> <span class="toc-text">1.3.1 名词解释</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-应用场景"><span class="toc-number">1.4.</span> <span class="toc-text">1.4 应用场景</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、Kafka搭建"><span class="toc-number">2.</span> <span class="toc-text">二、Kafka搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-安装"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-配置"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、Kafka操作"><span class="toc-number">3.</span> <span class="toc-text">三、Kafka操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-Topic操作"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 Topic操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-1-创建Topic"><span class="toc-number">3.1.1.</span> <span class="toc-text">3.1.1 创建Topic</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-2-查看Topic列表"><span class="toc-number">3.1.2.</span> <span class="toc-text">3.1.2 查看Topic列表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-3-查看某一个具体的Topic"><span class="toc-number">3.1.3.</span> <span class="toc-text">3.1.3 查看某一个具体的Topic</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-4-修改Topic"><span class="toc-number">3.1.4.</span> <span class="toc-text">3.1.4 修改Topic</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-5-删除Topic"><span class="toc-number">3.1.5.</span> <span class="toc-text">3.1.5 删除Topic</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-生产者操作"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 生产者操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-消费者操作"><span class="toc-number">3.3.</span> <span class="toc-text">3.3 消费者操作</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、Springboot整合Kafka"><span class="toc-number">4.</span> <span class="toc-text">四、Springboot整合Kafka</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-整合"><span class="toc-number">4.1.</span> <span class="toc-text">4.1 整合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-pom-xml配置"><span class="toc-number">4.2.</span> <span class="toc-text">4.2 pom.xml配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-Producer配置"><span class="toc-number">4.3.</span> <span class="toc-text">4.3 Producer配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-使用生产者"><span class="toc-number">4.4.</span> <span class="toc-text">4.4 使用生产者</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-5-Consumer配置"><span class="toc-number">4.5.</span> <span class="toc-text">4.5 Consumer配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-6-使用消费者"><span class="toc-number">4.6.</span> <span class="toc-text">4.6 使用消费者</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-7-注意"><span class="toc-number">4.7.</span> <span class="toc-text">4.7 注意</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-8-使用"><span class="toc-number">4.7.1.</span> <span class="toc-text">4.8 使用</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、总结"><span class="toc-number">5.</span> <span class="toc-text">五、总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#六、相关链接"><span class="toc-number">6.</span> <span class="toc-text">六、相关链接</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/post/9f79558f.html" class="archive-article-date">
-  	<time datetime="2018-09-10T10:36:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-09-10</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/post/9f79558f.html">开始吧</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">start</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
+
+  
+  <div id="gitment-ctn"></div> 
+<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: "https://wangtomorrow.github.io/post/85675a3e.html",
+  owner: 'Wangtomorrow',
+  repo: 'Wangtomorrow.github.io',
+  oauth: {
+    client_id: 'caff35e2967243ab4ef1',
+    client_secret: '22e85bc9f7795eea44bd9dc4f6e028d1717cf2e7',
+  },
+})
+gitment.render('gitment-ctn')
+</script>
+  
 
 
           </div>
@@ -327,8 +504,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
