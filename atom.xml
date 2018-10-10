@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://wangtomorrow.github.io/"/>
-  <updated>2018-09-13T10:33:06.615Z</updated>
+  <updated>2018-10-10T10:52:28.487Z</updated>
   <id>https://wangtomorrow.github.io/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>通过配置application.yml实现开发测试生产环境的搭建</title>
+    <link href="https://wangtomorrow.github.io/post/5c4ace42.html"/>
+    <id>https://wangtomorrow.github.io/post/5c4ace42.html</id>
+    <published>2018-09-29T08:47:18.000Z</published>
+    <updated>2018-10-10T10:52:28.487Z</updated>
+    
+    <content type="html"><![CDATA[<p>&emsp;前几天由于开发与测试用的是同一个系统，开发的时候测试不能使用，通过application.yml来控制不同环境。</p><hr><a id="more"></a><h2 id="一、系统设计"><a href="#一、系统设计" class="headerlink" title="一、系统设计"></a>一、系统设计</h2><p><img src="https://github.com/Wangtomorrow/Resource/blob/master/application.png?raw=true" alt="系统设计图"><br>系统设计如图，公共服务可以放到一起，容易产生冲突的服务单独搭建为私有服务。图片未加载出来，<a href="https://github.com/Wangtomorrow/Resource/blob/master/application.png?raw=true" target="_blank" rel="noopener">点击</a></p><h2 id="二、application-yml"><a href="#二、application-yml" class="headerlink" title="二、application.yml"></a>二、application.yml</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  profiles:</span><br><span class="line">    active: dev //在此控制不同环境的入口（开发：dev， 测试：test， 生产：prod）</span><br></pre></td></tr></table></figure><h2 id="三、application-dev-yml"><a href="#三、application-dev-yml" class="headerlink" title="三、application-dev.yml"></a>三、application-dev.yml</h2><p>大部分配置都是相同的就行。<br>涉及到数据库或者别的公用的东西，产生冲突的分别单独搭建。<br>通过配置profile的active属性即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  profiles:</span><br><span class="line">    active: dev</span><br></pre></td></tr></table></figure></p><p>&emsp;这样就可以一套代码部署到不同环境上，开发测试生产互不干扰。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&amp;emsp;前几天由于开发与测试用的是同一个系统，开发的时候测试不能使用，通过application.yml来控制不同环境。&lt;/p&gt;
+&lt;hr&gt;
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>Kafka及Spring&amp;Kafka整合</title>
@@ -32,11 +51,11 @@
     </summary>
     
     
+      <category term="笔记" scheme="https://wangtomorrow.github.io/tags/%E7%AC%94%E8%AE%B0/"/>
+    
       <category term="Kafka" scheme="https://wangtomorrow.github.io/tags/Kafka/"/>
     
       <category term="Springboot Kafka" scheme="https://wangtomorrow.github.io/tags/Springboot-Kafka/"/>
-    
-      <category term="笔记" scheme="https://wangtomorrow.github.io/tags/%E7%AC%94%E8%AE%B0/"/>
     
   </entry>
   
@@ -56,9 +75,9 @@
     </summary>
     
     
-      <category term="笔记" scheme="https://wangtomorrow.github.io/tags/%E7%AC%94%E8%AE%B0/"/>
-    
       <category term="spring" scheme="https://wangtomorrow.github.io/tags/spring/"/>
+    
+      <category term="笔记" scheme="https://wangtomorrow.github.io/tags/%E7%AC%94%E8%AE%B0/"/>
     
       <category term="IOC" scheme="https://wangtomorrow.github.io/tags/IOC/"/>
     
