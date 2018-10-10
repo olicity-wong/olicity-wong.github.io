@@ -51,11 +51,11 @@
     </summary>
     
     
-      <category term="笔记" scheme="https://wangtomorrow.github.io/tags/%E7%AC%94%E8%AE%B0/"/>
-    
       <category term="Kafka" scheme="https://wangtomorrow.github.io/tags/Kafka/"/>
     
       <category term="Springboot Kafka" scheme="https://wangtomorrow.github.io/tags/Springboot-Kafka/"/>
+    
+      <category term="笔记" scheme="https://wangtomorrow.github.io/tags/%E7%AC%94%E8%AE%B0/"/>
     
   </entry>
   
@@ -75,9 +75,9 @@
     </summary>
     
     
-      <category term="spring" scheme="https://wangtomorrow.github.io/tags/spring/"/>
-    
       <category term="笔记" scheme="https://wangtomorrow.github.io/tags/%E7%AC%94%E8%AE%B0/"/>
+    
+      <category term="spring" scheme="https://wangtomorrow.github.io/tags/spring/"/>
     
       <category term="IOC" scheme="https://wangtomorrow.github.io/tags/IOC/"/>
     
