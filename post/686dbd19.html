@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Olicity Forever">
 <meta property="og:description" content="一、背景&amp;emsp;使用http请求的在服务之间传递消息时，会出现字符串乱码现象。&amp;emsp;使用POST方法提交时，会对其中的有些字符进行编码,数据内容的类型是 application/x-www-form-urlencoded">
 <meta property="og:locale" content="zh-CN.yml">
-<meta property="og:updated_time" content="2018-10-17T09:14:02.767Z">
+<meta property="og:updated_time" content="2018-10-17T10:02:12.221Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="URLEncode和URLDecoder">
 <meta name="twitter:description" content="一、背景&amp;emsp;使用http请求的在服务之间传递消息时，会出现字符串乱码现象。&amp;emsp;使用POST方法提交时，会对其中的有些字符进行编码,数据内容的类型是 application/x-www-form-urlencoded">
@@ -182,8 +182,8 @@
         <h2 id="一、背景"><a href="#一、背景" class="headerlink" title="一、背景"></a>一、背景</h2><p>&emsp;使用http请求的在服务之间传递消息时，会出现字符串乱码现象。<br>&emsp;使用POST方法提交时，会对其中的有些字符进行编码,数据内容的类型是 application/x-www-form-urlencoded<br><a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1.字符&quot;a&quot;-&quot;z&quot;，&quot;A&quot;-&quot;Z&quot;，&quot;0&quot;-&quot;9&quot;，&quot;.&quot;，&quot;-&quot;，&quot;*&quot;，和&quot;_&quot; 都不会被编码;</span><br><span class="line">2.将空格转换为加号 (+) ;</span><br><span class="line">3.将非文本内容转换成&quot;%xy&quot;的形式,xy是两位16进制的数值;</span><br><span class="line">4.在每个 name=value 对之间放置 &amp; 符号。</span><br></pre></td></tr></table></figure></p>
 <p>&emsp;URLDecoder 和 URLEncoder 用于完成普通字符串 和 application/x-www-form-urlencoded MIME 字符串之间的相互转换。</p>
 <h2 id="二、使用"><a href="#二、使用" class="headerlink" title="二、使用"></a>二、使用</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">正常的字符串：破晓</span><br><span class="line">URL中的字符串：%e7%a0%b4%e6%99%93</span><br></pre></td></tr></table></figure>
-<h3 id="1-URLEncode"><a href="#1-URLEncode" class="headerlink" title="1.URLEncode"></a>1.URLEncode</h3><p>&emsp;URLEncode是对URL中的特殊字符部分进行编码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">String url = &quot;破晓&quot;;</span><br><span class="line">try&#123;</span><br><span class="line">    url = URLEncoder.encode(url,&quot;utf-8&quot;);</span><br><span class="line">    System.out.println(&quot;-----&quot;+url);</span><br><span class="line">&#125;catch (Exception e)&#123;</span><br><span class="line">    System.out.println(&quot;---&quot;);</span><br><span class="line">&#125;</span><br><span class="line">```  </span><br><span class="line">### 2.URLDecode</span><br><span class="line">&amp;emsp;URLEncode是对URL中的特殊字符部分进行解码</span><br></pre></td></tr></table></figure></p>
-<p>String url = “%e7%a0%b4%e6%99%93”;<br>try{<br>    url = URLDecoder.decode(url);<br>    System.out.println(“—–”+url);<br>}catch (Exception e){<br>    System.out.println(“—“);<br>}<br><code>`</code></p>
+<h3 id="1-URLEncode"><a href="#1-URLEncode" class="headerlink" title="1.URLEncode"></a>1.URLEncode</h3><p>&emsp;URLEncode是对URL中的特殊字符部分进行编码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">String url = &quot;破晓&quot;;</span><br><span class="line">try&#123;</span><br><span class="line">    url = URLEncoder.encode(url,&quot;utf-8&quot;);</span><br><span class="line">    System.out.println(&quot;-----&quot;+url);</span><br><span class="line">&#125;catch (Exception e)&#123;</span><br><span class="line">    System.out.println(&quot;---&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="2-URLDecode"><a href="#2-URLDecode" class="headerlink" title="2.URLDecode"></a>2.URLDecode</h3><p>&emsp;URLEncode是对URL中的特殊字符部分进行解码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">String url = &quot;%e7%a0%b4%e6%99%93&quot;;</span><br><span class="line">try&#123;</span><br><span class="line">    url = URLDecoder.decode(url);</span><br><span class="line">    System.out.println(&quot;-----&quot;+url);</span><br><span class="line">&#125;catch (Exception e)&#123;</span><br><span class="line">    System.out.println(&quot;---&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h2 id="三、应用"><a href="#三、应用" class="headerlink" title="三、应用"></a>三、应用</h2><p>&emsp;上次发现个问题，经过我们使用BASE64加密，通过http请求后，发现原来的“+”全部变成了“ ”。最后发现问题出在这里。<br>&emsp;上述方法即可解决http请求后出现乱码现象。</p>
 
       
@@ -250,7 +250,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、背景"><span class="toc-number">1.</span> <span class="toc-text">一、背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、使用"><span class="toc-number">2.</span> <span class="toc-text">二、使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-URLEncode"><span class="toc-number">2.1.</span> <span class="toc-text">1.URLEncode</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、应用"><span class="toc-number">3.</span> <span class="toc-text">三、应用</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、背景"><span class="toc-number">1.</span> <span class="toc-text">一、背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、使用"><span class="toc-number">2.</span> <span class="toc-text">二、使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-URLEncode"><span class="toc-number">2.1.</span> <span class="toc-text">1.URLEncode</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-URLDecode"><span class="toc-number">2.2.</span> <span class="toc-text">2.URLDecode</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、应用"><span class="toc-number">3.</span> <span class="toc-text">三、应用</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -386,18 +386,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">start</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Http</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">spring</a>
               </li>
              
@@ -414,7 +402,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Http</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">start</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -423,6 +419,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">环境搭建</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
               </li>
             
             <div class="clearfix"></div>
