@@ -6,20 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://wangtomorrow.github.io">
-  <title>URLEncode和URLDecoder | Olicity Forever</title>
+  <title>hive优化之count distinct | Olicity Forever</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一、背景&amp;emsp;使用http请求的在服务之间传递消息时，会出现字符串乱码现象。&amp;emsp;使用POST方法提交时，会对其中的有些字符进行编码,数据内容的类型是 application/x-www-form-urlencoded">
-<meta name="keywords" content="Java,Http">
+  <meta name="description" content="&amp;emsp;日常使用hive sql进行数据的分析，当需要统计某个字段去重后的数量时，会用到如下语句：">
+<meta name="keywords" content="hive">
 <meta property="og:type" content="article">
-<meta property="og:title" content="URLEncode和URLDecoder">
-<meta property="og:url" content="https://wangtomorrow.github.io/post/686dbd19.html">
+<meta property="og:title" content="hive优化之count distinct">
+<meta property="og:url" content="https://wangtomorrow.github.io/post/e146891d.html">
 <meta property="og:site_name" content="Olicity Forever">
-<meta property="og:description" content="一、背景&amp;emsp;使用http请求的在服务之间传递消息时，会出现字符串乱码现象。&amp;emsp;使用POST方法提交时，会对其中的有些字符进行编码,数据内容的类型是 application/x-www-form-urlencoded">
+<meta property="og:description" content="&amp;emsp;日常使用hive sql进行数据的分析，当需要统计某个字段去重后的数量时，会用到如下语句：">
 <meta property="og:locale" content="zh-CN.yml">
-<meta property="og:updated_time" content="2018-10-17T10:02:12.221Z">
+<meta property="og:image" content="https://github.com/Wangtomorrow/Resource/blob/master/hive_count_job1.jpg?raw=true">
+<meta property="og:image" content="https://github.com/Wangtomorrow/Resource/blob/master/hive_count_job2.jpg?raw=true">
+<meta property="og:updated_time" content="2018-11-06T03:09:30.115Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="URLEncode和URLDecoder">
-<meta name="twitter:description" content="一、背景&amp;emsp;使用http请求的在服务之间传递消息时，会出现字符串乱码现象。&amp;emsp;使用POST方法提交时，会对其中的有些字符进行编码,数据内容的类型是 application/x-www-form-urlencoded">
+<meta name="twitter:title" content="hive优化之count distinct">
+<meta name="twitter:description" content="&amp;emsp;日常使用hive sql进行数据的分析，当需要统计某个字段去重后的数量时，会用到如下语句：">
+<meta name="twitter:image" content="https://github.com/Wangtomorrow/Resource/blob/master/hive_count_job1.jpg?raw=true">
   
     <link rel="alternative" href="/atom.xml" title="Olicity Forever" type="application/atom+xml">
   
@@ -159,32 +162,32 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-URLEncode和URLDecoder" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-hive优化之count-distinct" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      URLEncode和URLDecoder
+      hive优化之count distinct
     </h1>
   
 
         
-        <a href="/post/686dbd19.html" class="archive-article-date">
-  	<time datetime="2018-10-17T08:35:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-17</time>
+        <a href="/post/e146891d.html" class="archive-article-date">
+  	<time datetime="2018-11-06T02:53:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-06</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="一、背景"><a href="#一、背景" class="headerlink" title="一、背景"></a>一、背景</h2><p>&emsp;使用http请求的在服务之间传递消息时，会出现字符串乱码现象。<br>&emsp;使用POST方法提交时，会对其中的有些字符进行编码,数据内容的类型是 application/x-www-form-urlencoded<br><a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1.字符&quot;a&quot;-&quot;z&quot;，&quot;A&quot;-&quot;Z&quot;，&quot;0&quot;-&quot;9&quot;，&quot;.&quot;，&quot;-&quot;，&quot;*&quot;，和&quot;_&quot; 都不会被编码;</span><br><span class="line">2.将空格转换为加号 (+) ;</span><br><span class="line">3.将非文本内容转换成&quot;%xy&quot;的形式,xy是两位16进制的数值;</span><br><span class="line">4.在每个 name=value 对之间放置 &amp; 符号。</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;URLDecoder 和 URLEncoder 用于完成普通字符串 和 application/x-www-form-urlencoded MIME 字符串之间的相互转换。</p>
-<h2 id="二、使用"><a href="#二、使用" class="headerlink" title="二、使用"></a>二、使用</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">正常的字符串：破晓</span><br><span class="line">URL中的字符串：%e7%a0%b4%e6%99%93</span><br></pre></td></tr></table></figure>
-<h3 id="1-URLEncode"><a href="#1-URLEncode" class="headerlink" title="1.URLEncode"></a>1.URLEncode</h3><p>&emsp;URLEncode是对URL中的特殊字符部分进行编码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">String url = &quot;破晓&quot;;</span><br><span class="line">try&#123;</span><br><span class="line">    url = URLEncoder.encode(url,&quot;utf-8&quot;);</span><br><span class="line">    System.out.println(&quot;-----&quot;+url);</span><br><span class="line">&#125;catch (Exception e)&#123;</span><br><span class="line">    System.out.println(&quot;---&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="2-URLDecode"><a href="#2-URLDecode" class="headerlink" title="2.URLDecode"></a>2.URLDecode</h3><p>&emsp;URLEncode是对URL中的特殊字符部分进行解码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">String url = &quot;%e7%a0%b4%e6%99%93&quot;;</span><br><span class="line">try&#123;</span><br><span class="line">    url = URLDecoder.decode(url);</span><br><span class="line">    System.out.println(&quot;-----&quot;+url);</span><br><span class="line">&#125;catch (Exception e)&#123;</span><br><span class="line">    System.out.println(&quot;---&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="三、应用"><a href="#三、应用" class="headerlink" title="三、应用"></a>三、应用</h2><p>&emsp;上次发现个问题，经过我们使用BASE64加密，通过http请求后，发现原来的“+”全部变成了“ ”。最后发现问题出在这里。<br>&emsp;上述方法即可解决http请求后出现乱码现象。</p>
+        <p>&emsp;日常使用hive sql进行数据的分析，当需要统计某个字段去重后的数量时，会用到如下语句：<br><a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT COUNT( DISTINCT id ) FROM TABLE_NAME WHERE ...;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;这条语句的mapreduce执行图如下：<br><img src="https://github.com/Wangtomorrow/Resource/blob/master/hive_count_job1.jpg?raw=true" alt="mapreduce执行图"></p>
+<p>&emsp;由于引入了DISTINCT，因此在Map阶段无法利用combine对输出结果消重，必须将id作为Key输出，在Reduce阶段再对来自于不同Map Task、相同Key的结果进行消重，计入最终统计值。<br>&emsp;我们看到作业运行时的Reduce Task个数为1，对于统计大数据量时，这会导致最终Map的全部输出由单个的ReduceTask处理。这唯一的Reduce Task需要Shuffle大量的数据，并且进行排序聚合等处理，这使得它成为整个作业的IO和运算瓶颈。<br>&emsp;经过上述分析后，我们尝试显式地增大Reduce Task个数来提高Reduce阶段的并发，使每一个Reduce Task的数据处理量控制在2G左右。具体设置如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set mapred.reduce.tasks=100</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;调整后我们发现这一参数并没有影响实际Reduce Task个数，Hive运行时输出“Number of reduce tasks determined at compile time: 1”。原来Hive在处理COUNT这种“全聚合(full aggregates)”计算时，它会忽略用户指定的Reduce Task数，而强制使用1。我们只能采用变通的方法来绕过这一限制。我们利用Hive对嵌套语句的支持，将原来一个MapReduce作业转换为两个作业，在第一阶段选出全部的非重复id，在第二阶段再对这些已消重的id进行计数。这样在第一阶段我们可以通过增大Reduce的并发数，并发处理Map输出。在第二阶段，由于id已经消重，因此COUNT(*)操作在Map阶段不需要输出原id数据，只输出一个合并后的计数即可。这样即使第二阶段Hive强制指定一个Reduce Task，极少量的Map输出数据也不会使单一的Reduce Task成为瓶颈。改进后的SQL语句如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT COUNT(*) FROM (SELECT DISTINCT id FROM TABLE_NAME WHERE … ) t;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;在实际运行时，我们发现Hive还对这两阶段的作业做了额外的优化。它将第二个MapReduce作业Map中的Count过程移到了第一个作业的Reduce阶段。这样在第一阶Reduce就可以输出计数值，而不是消重的全部id。这一优化大幅地减少了第一个作业的Reduce输出IO以及第二个作业Map的输入数据量。最终在同样的运行环境下优化后的语句执行只需要原语句20%左右的时间。优化后的MapReduce作业流如下：<br><img src="https://github.com/Wangtomorrow/Resource/blob/master/hive_count_job2.jpg?raw=true" alt="mapreduce执行图"><br>从上述优化过程我们可以看出，一个简单的统计需求，如果不理解Hive和MapReduce的工作原理，它可能会比优化后的执行过程多四、五倍的时间。我们在利用Hive简化开发的同时，也要尽可能优化SQL语句，提升计算作业的执行效率。</p>
+<p>此文转自<a href="http://bigdata-blog.net/2013/11/08/hive-sql%E4%BC%98%E5%8C%96%E4%B9%8B-count-distinct/" target="_blank" rel="noopener">Bigdata Blog</a></p>
 
       
 
@@ -198,11 +201,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Http</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hive</a>
         		</li>
       		
 		</ul>
@@ -221,18 +220,9 @@
   
 <nav id="article-nav">
   
-    <a href="/post/96910ad9.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          hive开发UDF及使用
-        
-      </div>
-    </a>
   
-  
-    <a href="/post/f9a72d3.html" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">关于hadoop3.0的使用</div>
+    <a href="/post/96910ad9.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">hive开发UDF及使用</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -259,7 +249,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、背景"><span class="toc-number">1.</span> <span class="toc-text">一、背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、使用"><span class="toc-number">2.</span> <span class="toc-text">二、使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-URLEncode"><span class="toc-number">2.1.</span> <span class="toc-text">1.URLEncode</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-URLDecode"><span class="toc-number">2.2.</span> <span class="toc-text">2.URLDecode</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、应用"><span class="toc-number">3.</span> <span class="toc-text">三、应用</span></a></li></ol>
+                    目录，不存在的…
                     </div>
                 </span>
             </div>
@@ -284,7 +274,7 @@
 <script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
 var gitment = new Gitment({
-  id: "https://wangtomorrow.github.io/post/686dbd19.html",
+  id: "https://wangtomorrow.github.io/post/e146891d.html",
   owner: 'Wangtomorrow',
   repo: 'Wangtomorrow.github.io',
   oauth: {

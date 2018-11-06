@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://wangtomorrow.github.io/"/>
-  <updated>2018-10-26T03:47:18.446Z</updated>
+  <updated>2018-11-06T03:09:30.115Z</updated>
   <id>https://wangtomorrow.github.io/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>hive优化之count distinct</title>
+    <link href="https://wangtomorrow.github.io/post/e146891d.html"/>
+    <id>https://wangtomorrow.github.io/post/e146891d.html</id>
+    <published>2018-11-06T02:53:47.000Z</published>
+    <updated>2018-11-06T03:09:30.115Z</updated>
+    
+    <content type="html"><![CDATA[<p>&emsp;日常使用hive sql进行数据的分析，当需要统计某个字段去重后的数量时，会用到如下语句：<br><a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT COUNT( DISTINCT id ) FROM TABLE_NAME WHERE ...;</span><br></pre></td></tr></table></figure></p><p>&emsp;这条语句的mapreduce执行图如下：<br><img src="https://github.com/Wangtomorrow/Resource/blob/master/hive_count_job1.jpg?raw=true" alt="mapreduce执行图"></p><p>&emsp;由于引入了DISTINCT，因此在Map阶段无法利用combine对输出结果消重，必须将id作为Key输出，在Reduce阶段再对来自于不同Map Task、相同Key的结果进行消重，计入最终统计值。<br>&emsp;我们看到作业运行时的Reduce Task个数为1，对于统计大数据量时，这会导致最终Map的全部输出由单个的ReduceTask处理。这唯一的Reduce Task需要Shuffle大量的数据，并且进行排序聚合等处理，这使得它成为整个作业的IO和运算瓶颈。<br>&emsp;经过上述分析后，我们尝试显式地增大Reduce Task个数来提高Reduce阶段的并发，使每一个Reduce Task的数据处理量控制在2G左右。具体设置如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set mapred.reduce.tasks=100</span><br></pre></td></tr></table></figure></p><p>&emsp;调整后我们发现这一参数并没有影响实际Reduce Task个数，Hive运行时输出“Number of reduce tasks determined at compile time: 1”。原来Hive在处理COUNT这种“全聚合(full aggregates)”计算时，它会忽略用户指定的Reduce Task数，而强制使用1。我们只能采用变通的方法来绕过这一限制。我们利用Hive对嵌套语句的支持，将原来一个MapReduce作业转换为两个作业，在第一阶段选出全部的非重复id，在第二阶段再对这些已消重的id进行计数。这样在第一阶段我们可以通过增大Reduce的并发数，并发处理Map输出。在第二阶段，由于id已经消重，因此COUNT(*)操作在Map阶段不需要输出原id数据，只输出一个合并后的计数即可。这样即使第二阶段Hive强制指定一个Reduce Task，极少量的Map输出数据也不会使单一的Reduce Task成为瓶颈。改进后的SQL语句如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT COUNT(*) FROM (SELECT DISTINCT id FROM TABLE_NAME WHERE … ) t;</span><br></pre></td></tr></table></figure></p><p>&emsp;在实际运行时，我们发现Hive还对这两阶段的作业做了额外的优化。它将第二个MapReduce作业Map中的Count过程移到了第一个作业的Reduce阶段。这样在第一阶Reduce就可以输出计数值，而不是消重的全部id。这一优化大幅地减少了第一个作业的Reduce输出IO以及第二个作业Map的输入数据量。最终在同样的运行环境下优化后的语句执行只需要原语句20%左右的时间。优化后的MapReduce作业流如下：<br><img src="https://github.com/Wangtomorrow/Resource/blob/master/hive_count_job2.jpg?raw=true" alt="mapreduce执行图"><br>从上述优化过程我们可以看出，一个简单的统计需求，如果不理解Hive和MapReduce的工作原理，它可能会比优化后的执行过程多四、五倍的时间。我们在利用Hive简化开发的同时，也要尽可能优化SQL语句，提升计算作业的执行效率。</p><p>此文转自<a href="http://bigdata-blog.net/2013/11/08/hive-sql%E4%BC%98%E5%8C%96%E4%B9%8B-count-distinct/" target="_blank" rel="noopener">Bigdata Blog</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&amp;emsp;日常使用hive sql进行数据的分析，当需要统计某个字段去重后的数量时，会用到如下语句：&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="hive" scheme="https://wangtomorrow.github.io/tags/hive/"/>
+    
+  </entry>
   
   <entry>
     <title>hive开发UDF及使用</title>
@@ -32,9 +52,9 @@
     </summary>
     
     
-      <category term="hadoop" scheme="https://wangtomorrow.github.io/tags/hadoop/"/>
-    
       <category term="hive" scheme="https://wangtomorrow.github.io/tags/hive/"/>
+    
+      <category term="hadoop" scheme="https://wangtomorrow.github.io/tags/hadoop/"/>
     
       <category term="UDF" scheme="https://wangtomorrow.github.io/tags/UDF/"/>
     
