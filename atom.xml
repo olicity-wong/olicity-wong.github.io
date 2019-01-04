@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://wangtomorrow.github.io/"/>
-  <updated>2018-12-25T10:31:26.134Z</updated>
+  <updated>2019-01-04T08:47:28.302Z</updated>
   <id>https://wangtomorrow.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>hadoop删库跑路？</title>
+    <link href="https://wangtomorrow.github.io/post/956da96e.html"/>
+    <id>https://wangtomorrow.github.io/post/956da96e.html</id>
+    <published>2019-01-04T07:58:59.000Z</published>
+    <updated>2019-01-04T08:47:28.302Z</updated>
+    
+    <content type="html"><![CDATA[<p>&emsp;emmmm…昨天hadoop删库了。当时很慌，想半天好像记起来hadoop有个类似于回收站的东西，找了一下果然有，记录下，下次删库不要急着跑路。<br><a id="more"></a></p><h2 id="一、“回收站”"><a href="#一、“回收站”" class="headerlink" title="一、“回收站”"></a>一、“回收站”</h2><p>hadoop有个类似于回收站的机制，通常我们删除hdfs文件时<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -rm -r olicity/tableName</span><br></pre></td></tr></table></figure></p><p>执行命令后，并非将文件直接删除，而是将文件移动到设置的”.Trash”目录下。  </p><h2 id="二、配置“回收站”"><a href="#二、配置“回收站”" class="headerlink" title="二、配置“回收站”"></a>二、配置“回收站”</h2><p>默认情况下，.Trash为关闭状态，如果需要恢复误删文件，需要进行配置core-site.xml<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;property&gt;</span><br><span class="line">    &lt;name&gt;fs.trash.interval&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;100&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure></p><p>说明：fs.trash.interval代表删除的文件保留的时间，时间单位为分钟，默认为0代表不保存删除的文件。我们只需要设置该时间即可打开.Trash。</p><h2 id="三、使用“回收站”"><a href="#三、使用“回收站”" class="headerlink" title="三、使用“回收站”"></a>三、使用“回收站”</h2><p>配置完了，就试试吧。先删库。（一定要确保配置完了，要不然还是随便删点不重要的东西吧）<br>删除之后，会提示<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">19/01/04 16:24:10 INFO fs.TrashPolicyDefault: Moved: &apos;hdfs://路径&apos; to trash at: hdfs://路径/.Trash/Current/路径</span><br></pre></td></tr></table></figure></p><p>恢复文件时，只需要<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -mv</span><br></pre></td></tr></table></figure></p><p>嗯，移动出来就可以了。</p><h2 id="四、彻底删除"><a href="#四、彻底删除" class="headerlink" title="四、彻底删除"></a>四、彻底删除</h2><p>如果说这东西，你真的确定不想要了&amp;&amp;还觉得他占空间，可以彻底删除。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -rm -r 路径/.Trash/路径</span><br></pre></td></tr></table></figure></p><p>不过轻易不要这么干，万一出事就真的得跑路了。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&amp;emsp;emmmm…昨天hadoop删库了。当时很慌，想半天好像记起来hadoop有个类似于回收站的东西，找了一下果然有，记录下，下次删库不要急着跑路。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="hadoop" scheme="https://wangtomorrow.github.io/tags/hadoop/"/>
+    
+      <category term="hdfs" scheme="https://wangtomorrow.github.io/tags/hdfs/"/>
+    
+  </entry>
   
   <entry>
     <title>log4j与hadoop的简单结合</title>
@@ -32,13 +54,13 @@
     </summary>
     
     
-      <category term="hive" scheme="https://wangtomorrow.github.io/tags/hive/"/>
-    
       <category term="hadoop" scheme="https://wangtomorrow.github.io/tags/hadoop/"/>
     
-      <category term="spring" scheme="https://wangtomorrow.github.io/tags/spring/"/>
+      <category term="hive" scheme="https://wangtomorrow.github.io/tags/hive/"/>
     
       <category term="log4j" scheme="https://wangtomorrow.github.io/tags/log4j/"/>
+    
+      <category term="spring" scheme="https://wangtomorrow.github.io/tags/spring/"/>
     
   </entry>
   
@@ -100,9 +122,9 @@
     </summary>
     
     
-      <category term="hive" scheme="https://wangtomorrow.github.io/tags/hive/"/>
-    
       <category term="hadoop" scheme="https://wangtomorrow.github.io/tags/hadoop/"/>
+    
+      <category term="hive" scheme="https://wangtomorrow.github.io/tags/hive/"/>
     
       <category term="UDF" scheme="https://wangtomorrow.github.io/tags/UDF/"/>
     
