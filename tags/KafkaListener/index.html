@@ -6,20 +6,15 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://wangtomorrow.github.io">
-  <title>URLEncode和URLDecoder | Olicity Forever</title>
+  <title>Tag: KafkaListener | Olicity Forever</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一、背景&amp;emsp;使用http请求的在服务之间传递消息时，会出现字符串乱码现象。&amp;emsp;使用POST方法提交时，会对其中的有些字符进行编码,数据内容的类型是 application/x-www-form-urlencoded">
-<meta name="keywords" content="Java,Http">
-<meta property="og:type" content="article">
-<meta property="og:title" content="URLEncode和URLDecoder">
-<meta property="og:url" content="https://wangtomorrow.github.io/post/686dbd19.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Olicity Forever">
+<meta property="og:url" content="https://wangtomorrow.github.io/tags/KafkaListener/index.html">
 <meta property="og:site_name" content="Olicity Forever">
-<meta property="og:description" content="一、背景&amp;emsp;使用http请求的在服务之间传递消息时，会出现字符串乱码现象。&amp;emsp;使用POST方法提交时，会对其中的有些字符进行编码,数据内容的类型是 application/x-www-form-urlencoded">
 <meta property="og:locale" content="zh-CN.yml">
-<meta property="og:updated_time" content="2018-10-17T10:02:12.221Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="URLEncode和URLDecoder">
-<meta name="twitter:description" content="一、背景&amp;emsp;使用http请求的在服务之间传递消息时，会出现字符串乱码现象。&amp;emsp;使用POST方法提交时，会对其中的有些字符进行编码,数据内容的类型是 application/x-www-form-urlencoded">
+<meta name="twitter:title" content="Olicity Forever">
   
     <link rel="alternative" href="/atom.xml" title="Olicity Forever" type="application/atom+xml">
   
@@ -159,142 +154,68 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-URLEncode和URLDecoder" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      URLEncode和URLDecoder
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2019" class="archive-year">2019</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/post/bf5e9970.html" class="archive-article-date">
+  	<time datetime="2019-01-11T03:01:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-11</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/post/bf5e9970.html">kafka动态配置topic</a>
     </h1>
   
 
-        
-        <a href="/post/686dbd19.html" class="archive-article-date">
-  	<time datetime="2018-10-17T08:35:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="一、背景"><a href="#一、背景" class="headerlink" title="一、背景"></a>一、背景</h2><p>&emsp;使用http请求的在服务之间传递消息时，会出现字符串乱码现象。<br>&emsp;使用POST方法提交时，会对其中的有些字符进行编码,数据内容的类型是 application/x-www-form-urlencoded<br><a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1.字符&quot;a&quot;-&quot;z&quot;，&quot;A&quot;-&quot;Z&quot;，&quot;0&quot;-&quot;9&quot;，&quot;.&quot;，&quot;-&quot;，&quot;*&quot;，和&quot;_&quot; 都不会被编码;</span><br><span class="line">2.将空格转换为加号 (+) ;</span><br><span class="line">3.将非文本内容转换成&quot;%xy&quot;的形式,xy是两位16进制的数值;</span><br><span class="line">4.在每个 name=value 对之间放置 &amp; 符号。</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;URLDecoder 和 URLEncoder 用于完成普通字符串 和 application/x-www-form-urlencoded MIME 字符串之间的相互转换。</p>
-<h2 id="二、使用"><a href="#二、使用" class="headerlink" title="二、使用"></a>二、使用</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">正常的字符串：破晓</span><br><span class="line">URL中的字符串：%e7%a0%b4%e6%99%93</span><br></pre></td></tr></table></figure>
-<h3 id="1-URLEncode"><a href="#1-URLEncode" class="headerlink" title="1.URLEncode"></a>1.URLEncode</h3><p>&emsp;URLEncode是对URL中的特殊字符部分进行编码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">String url = &quot;破晓&quot;;</span><br><span class="line">try&#123;</span><br><span class="line">    url = URLEncoder.encode(url,&quot;utf-8&quot;);</span><br><span class="line">    System.out.println(&quot;-----&quot;+url);</span><br><span class="line">&#125;catch (Exception e)&#123;</span><br><span class="line">    System.out.println(&quot;---&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="2-URLDecode"><a href="#2-URLDecode" class="headerlink" title="2.URLDecode"></a>2.URLDecode</h3><p>&emsp;URLEncode是对URL中的特殊字符部分进行解码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">String url = &quot;%e7%a0%b4%e6%99%93&quot;;</span><br><span class="line">try&#123;</span><br><span class="line">    url = URLDecoder.decode(url);</span><br><span class="line">    System.out.println(&quot;-----&quot;+url);</span><br><span class="line">&#125;catch (Exception e)&#123;</span><br><span class="line">    System.out.println(&quot;---&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="三、应用"><a href="#三、应用" class="headerlink" title="三、应用"></a>三、应用</h2><p>&emsp;上次发现个问题，经过我们使用BASE64加密，通过http请求后，发现原来的“+”全部变成了“ ”。最后发现问题出在这里。<br>&emsp;上述方法即可解决http请求后出现乱码现象。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Kafka</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Http</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">KafkaListener</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">yml</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
+        </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/post/96910ad9.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          hive开发UDF及使用
-        
-      </div>
-    </a>
   
   
-    <a href="/post/f9a72d3.html" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">关于hadoop3.0的使用</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-        <div class="toc-container tooltip-left">
-            <i class="icon-font icon-category"></i>
-            <div class="tooltip tooltip-east">
-                <span class="tooltip-item">
-                </span>
-                <span class="tooltip-content">
-                    <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、背景"><span class="toc-number">1.</span> <span class="toc-text">一、背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、使用"><span class="toc-number">2.</span> <span class="toc-text">二、使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-URLEncode"><span class="toc-number">2.1.</span> <span class="toc-text">1.URLEncode</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-URLDecode"><span class="toc-number">2.2.</span> <span class="toc-text">2.URLDecode</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、应用"><span class="toc-number">3.</span> <span class="toc-text">三、应用</span></a></li></ol>
-                    </div>
-                </span>
-            </div>
-        </div>
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
-  
-  <div id="gitment-ctn"></div> 
-<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
-<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
-<script>
-var gitment = new Gitment({
-  id: "https://wangtomorrow.github.io/post/686dbd19.html",
-  owner: 'Wangtomorrow',
-  repo: 'Wangtomorrow.github.io',
-  oauth: {
-    client_id: 'caff35e2967243ab4ef1',
-    client_secret: '22e85bc9f7795eea44bd9dc4f6e028d1717cf2e7',
-  },
-})
-gitment.render('gitment-ctn')
-</script>
-  
+    
 
 
           </div>
@@ -318,9 +239,9 @@ gitment.render('gitment-ctn')
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
