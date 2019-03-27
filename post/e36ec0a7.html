@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://wangtomorrow.github.io">
-  <title>Tag: linux | Olicity Forever</title>
+  <title>hive日常使用的几个小技巧 | Olicity Forever</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Olicity Forever">
-<meta property="og:url" content="https://wangtomorrow.github.io/tags/linux/index.html">
+  <meta name="description" content="&amp;emsp;长期维护中。。。。主要记录日常使用hive中会用到的小技巧">
+<meta name="keywords" content="hadoop,hive">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hive日常使用的几个小技巧">
+<meta property="og:url" content="https://wangtomorrow.github.io/post/e36ec0a7.html">
 <meta property="og:site_name" content="Olicity Forever">
+<meta property="og:description" content="&amp;emsp;长期维护中。。。。主要记录日常使用hive中会用到的小技巧">
 <meta property="og:locale" content="zh-CN.yml">
+<meta property="og:updated_time" content="2019-03-27T04:05:46.416Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Olicity Forever">
+<meta name="twitter:title" content="hive日常使用的几个小技巧">
+<meta name="twitter:description" content="&amp;emsp;长期维护中。。。。主要记录日常使用hive中会用到的小技巧">
   
     <link rel="alternative" href="/atom.xml" title="Olicity Forever" type="application/atom+xml">
   
@@ -154,64 +159,139 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-hive日常使用的几个小技巧" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/post/78cb4de.html" class="archive-article-date">
-  	<time datetime="2018-12-25T08:06:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-25</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/post/78cb4de.html">crontab使用时间参数</a>
+    <h1 class="article-title" itemprop="name">
+      hive日常使用的几个小技巧
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/post/e36ec0a7.html" class="archive-article-date">
+  	<time datetime="2019-03-27T03:06:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>&emsp;长期维护中。。。。主要记录日常使用hive中会用到的小技巧<br><a id="more"></a></p>
+<h3 id="1-简单查询不跑MapReduce"><a href="#1-简单查询不跑MapReduce" class="headerlink" title="1.简单查询不跑MapReduce"></a>1.简单查询不跑MapReduce</h3><p>&emsp;如果你想直接查询（select * from table），却不想执行MapReduce，可以使用FetchTask，FetchTask不同于MapReduce任务，它不会启动mapreduce，而是直接读取文件，输出结果。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;hive.fetch.task.conversion&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;minimal&lt;/value&gt;</span><br><span class="line">  &lt;description&gt;</span><br><span class="line">    Some select queries can be converted to single FETCH task </span><br><span class="line">    minimizing latency.Currently the query should be single </span><br><span class="line">    sourced not having any subquery and should not have</span><br><span class="line">    any aggregations or distincts (which incurrs RS), </span><br><span class="line">    lateral views and joins.</span><br><span class="line">    1. minimal : SELECT STAR, FILTER on partition columns, LIMIT only</span><br><span class="line">    2. more    : SELECT, FILTER, LIMIT only (+TABLESAMPLE, virtual columns)</span><br><span class="line">  &lt;/description&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;该参数默认值为minimal，表示运行“select * ”并带有limit查询时候，会将其转换为FetchTask；如果参数值为more，则select某一些列并带有limit条件时，也会将其转换为FetchTask任务。<br>&emsp;使用前提:单一数据源，即输入来源一个表或者分区；没有子查询；没有聚合运算和distinct；不能用于视图和join<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">实现：</span><br><span class="line">set hive.fetch.task.conversion=more</span><br></pre></td></tr></table></figure></p>
+<h3 id="2-小文件合并"><a href="#2-小文件合并" class="headerlink" title="2.小文件合并"></a>2.小文件合并</h3><p>&emsp;Hive中存在过多的小文件会给namecode带来巨大的性能压力,同时小文件过多会影响JOB的执行，hadoop会将一个job转换成多个task，即使对于每个小文件也需要一个task去单独处理，task作为一个独立的jvm实例，其开启和停止的开销可能会大大超过实际的任务处理时间。hive输出最终是mr的输出，即reducer（或mapper）的输出，有多少个reducer（mapper）输出就会生成多少个输出文件，根据shuffle/sort的原理，每个文件按照某个值进行shuffle后的结果。为了防止生成过多小文件，hive可以通过配置参数在mr过程中合并小文件。而且在执行sql之前将小文件都进行Merge，也会提高程序的性能。我们可以从两个方面进行优化，其一是map执行之前将小文件进行合并会提高性能，其二是输出的时候进行合并压缩，减少IO压力。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">Map操作之前合并小文件：</span><br><span class="line">    set mapred.max.split.size=2048000000</span><br><span class="line">    #每个Map最大输入大小设置为2GB（单位：字节）</span><br><span class="line">    </span><br><span class="line">    set hive.input.format=org.apache.hadoop.hive.ql.io.CombineHiveInputFormat</span><br><span class="line">    #执行Map前进行小文件合并</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">输出时进行合并：</span><br><span class="line">    sethive.merge.mapfiles = true</span><br><span class="line">    #在Map-only的任务结束时合并小文件</span><br><span class="line"></span><br><span class="line">    set hive.merge.mapredfiles= true</span><br><span class="line">    #在Map-Reduce的任务结束时合并小文件</span><br><span class="line"></span><br><span class="line">    set hive.merge.size.per.task = 1024000000</span><br><span class="line">    #合并后文件的大小为1GB左右</span><br><span class="line"></span><br><span class="line">    set hive.merge.smallfiles.avgsize=1024000000</span><br><span class="line">    #当输出文件的平均大小小于1GB时，启动一个独立的map-reduce任务进行文件merge</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">如果需要压缩输出文件，就需要增加一个压缩编解码器，同时还有两个压缩方式和多种压缩编码器，压缩方式一个是压缩输出结果，一个是压缩中间结果，按照自己的需求选择，我需要的是gzip就选择的GzipCodec，同时也可以选择使用BZip2Codec、SnappyCodec、LzopCodec进行压缩。</span><br><span class="line">    压缩文件：</span><br><span class="line">    set hive.exec.compress.output=true;</span><br><span class="line">    #默认false，是否对输出结果压缩</span><br><span class="line"></span><br><span class="line">    set mapred.output.compression.codec=org.apache.hadoop.io.compress.GzipCodec;</span><br><span class="line">    #压缩格式设置</span><br><span class="line"></span><br><span class="line">    set mapred.output.compression.type=BLOCK;</span><br><span class="line">    #一共三种压缩方式（NONE, RECORD,BLOCK），BLOCK压缩率最高，一般用BLOCK。</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">老哥关于map和reduce个数配置的说明：</span><br><span class="line">https://irwenqiang.iteye.com/blog/1535809</span><br></pre></td></tr></table></figure>
+<h3 id="3-动态分区"><a href="#3-动态分区" class="headerlink" title="3.动态分区"></a>3.动态分区</h3><p>&emsp;有时候需要根据数据去动态生成分区，这时候就需要用到动态分区<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">set hive.exec.dynamic.partition=true; </span><br><span class="line">#开启动态分区功能</span><br><span class="line">set hive.exec.dynamic.partition.mode=nonstrict;  </span><br><span class="line">#表示允许所有分区都是动态的，否则必须有静态分区字段</span><br><span class="line">set hive.exec.max.dynamic.partitions=100000;</span><br><span class="line">#表示一个动态分区语句可以创建的最大动态分区个数，超出报错</span><br><span class="line">set hive.exec.max.dynamic.partitions.pernode=100000;</span><br><span class="line">#表示每个maper或reducer可以允许创建的最大动态分区个数，默认是100，超出则会报错。</span><br><span class="line">set hive.exec.max.created.files =10000</span><br><span class="line">#全局可以创建的最大文件个数，超出报错。</span><br></pre></td></tr></table></figure></p>
+<p>注意：动态分区不允许主分区采用动态列而副分区采用静态列，这样将导致所有的主分区都要创建副分区静态列所定义的分区</p>
+<h3 id="4-容错"><a href="#4-容错" class="headerlink" title="4.容错"></a>4.容错</h3><p>&emsp;有时候因为各种原因难免会有hive执行时出错的问题，例如个别数据不规范等。这时候需要允许部分错误发生。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">set mapreduce.map.failures.maxpercent=10; </span><br><span class="line">#设置map任务失败的比率，可以容许10%的任务失败</span><br><span class="line">set mapreduce.reduce.failures.maxpercent = 10; </span><br><span class="line">#设置reduce任务失败的比率，可以容许10%的任务失败</span><br></pre></td></tr></table></figure></p>
+<h3 id="5-交集并集差集"><a href="#5-交集并集差集" class="headerlink" title="5.交集并集差集"></a>5.交集并集差集</h3><p>&emsp;交集（join），并集（union all）。这俩简单没啥说的。差集（left outer join、not in、not exists）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">具体参考：</span><br><span class="line">https://blog.csdn.net/u010003835/article/details/80928732</span><br></pre></td></tr></table></figure></p>
+<p>这里涉及到left outer join和left semi join<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#left semi join解决的是IN/EXISTS的问题</span><br><span class="line">select a.id from a left semi join b on (a.id = b.id);</span><br><span class="line"></span><br><span class="line">#left outer join解决的是a差b的问题</span><br><span class="line">select a.id from a left outer join b on (a.id = b.id) where b.id is null;</span><br></pre></td></tr></table></figure></p>
+<h3 id="6-reduce资源申请时间"><a href="#6-reduce资源申请时间" class="headerlink" title="6.reduce资源申请时间"></a>6.reduce资源申请时间</h3><p>&emsp;为了节省时间，map未执行完时就申请reduce资源。mapreduce.job.reduce.slowstart.completedmaps，这个参数可以控制当map任务执行到哪个比例的时候就可以开始为reduce task申请资源。<br>配置在mapred-site.xml，如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;property&gt;</span><br><span class="line">    &lt;name&gt;</span><br><span class="line">         mapreduce.job.reduce.slowstart.completedmaps</span><br><span class="line">    &lt;/name&gt;</span><br><span class="line">    &lt;value&gt;</span><br><span class="line">        0.05</span><br><span class="line">    &lt;/value&gt;</span><br><span class="line">    &lt;description&gt;</span><br><span class="line">        Fraction of the number of maps in the job which should be complete before reduces are scheduled for the job.</span><br><span class="line">     &lt;/description&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;默认map5%时申请reduce资源，开始执行reduce操作，reduce可以开始进行拷贝map结果数据和做reduce shuffle操作。<br>&emsp;mapreduce.job.reduce.slowstart.completedmaps这个参数如果设置的过低，那么reduce就会过早地申请资源，造成资源浪费；如果这个参数设置的过高，比如为1，那么只有当map全部完成后，才为reduce申请资源，开始进行reduce操作，实际上是串行执行，不能采用并行方式充分利用资源。<br>&emsp;如果map数量比较多，一般建议提前开始为reduce申请资源。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">hadoop</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">crontab</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hive</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/post/cd564347.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">kafka一个服务配置到不同topic的group</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-简单查询不跑MapReduce"><span class="toc-number">1.</span> <span class="toc-text">1.简单查询不跑MapReduce</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-小文件合并"><span class="toc-number">2.</span> <span class="toc-text">2.小文件合并</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-动态分区"><span class="toc-number">3.</span> <span class="toc-text">3.动态分区</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-容错"><span class="toc-number">4.</span> <span class="toc-text">4.容错</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-交集并集差集"><span class="toc-number">5.</span> <span class="toc-text">5.交集并集差集</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-reduce资源申请时间"><span class="toc-number">6.</span> <span class="toc-text">6.reduce资源申请时间</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
+  <div id="gitment-ctn"></div> 
+<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: "https://wangtomorrow.github.io/post/e36ec0a7.html",
+  owner: 'Wangtomorrow',
+  repo: 'Wangtomorrow.github.io',
+  oauth: {
+    client_id: 'caff35e2967243ab4ef1',
+    client_secret: '22e85bc9f7795eea44bd9dc4f6e028d1717cf2e7',
+  },
+})
+gitment.render('gitment-ctn')
+</script>
+  
 
 
           </div>
@@ -235,9 +315,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
