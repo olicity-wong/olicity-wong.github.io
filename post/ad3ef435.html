@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://wangtomorrow.github.io">
-  <title>开始吧 | Olicity Forever</title>
+  <title>shell中获取hdfs文件路径参数 | Olicity Forever</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="&amp;emsp;入职一个月了，暑假的时候来公司做实习生，目前是在做hadoop的运维和别的项目的后端开发以及一些日常琐事的处理。">
-<meta name="keywords" content="start">
+  <meta name="description" content="&amp;emsp;算是个简单的工具吧。需求是这样的，有套脚本是不定期跑的累积表，所以需要知道上次跑到了哪天。累积表有个day_id分区，所以直接看表分区是最后的day_id就行。">
+<meta name="keywords" content="linux,hdfs,脚本,shell">
 <meta property="og:type" content="article">
-<meta property="og:title" content="开始吧">
-<meta property="og:url" content="https://wangtomorrow.github.io/post/9f79558f.html">
+<meta property="og:title" content="shell中获取hdfs文件路径参数">
+<meta property="og:url" content="https://wangtomorrow.github.io/post/ad3ef435.html">
 <meta property="og:site_name" content="Olicity Forever">
-<meta property="og:description" content="&amp;emsp;入职一个月了，暑假的时候来公司做实习生，目前是在做hadoop的运维和别的项目的后端开发以及一些日常琐事的处理。">
+<meta property="og:description" content="&amp;emsp;算是个简单的工具吧。需求是这样的，有套脚本是不定期跑的累积表，所以需要知道上次跑到了哪天。累积表有个day_id分区，所以直接看表分区是最后的day_id就行。">
 <meta property="og:locale" content="zh-CN.yml">
-<meta property="og:updated_time" content="2018-09-11T06:08:54.936Z">
+<meta property="og:updated_time" content="2019-03-28T07:14:26.411Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="开始吧">
-<meta name="twitter:description" content="&amp;emsp;入职一个月了，暑假的时候来公司做实习生，目前是在做hadoop的运维和别的项目的后端开发以及一些日常琐事的处理。">
+<meta name="twitter:title" content="shell中获取hdfs文件路径参数">
+<meta name="twitter:description" content="&amp;emsp;算是个简单的工具吧。需求是这样的，有套脚本是不定期跑的累积表，所以需要知道上次跑到了哪天。累积表有个day_id分区，所以直接看表分区是最后的day_id就行。">
   
     <link rel="alternative" href="/atom.xml" title="Olicity Forever" type="application/atom+xml">
   
@@ -159,28 +159,28 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-start" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-shell中获取hdfs文件路径参数" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      开始吧
+      shell中获取hdfs文件路径参数
     </h1>
   
 
         
-        <a href="/post/9f79558f.html" class="archive-article-date">
-  	<time datetime="2018-09-10T10:36:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-09-10</time>
+        <a href="/post/ad3ef435.html" class="archive-article-date">
+  	<time datetime="2019-03-28T07:08:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-28</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>&emsp;入职一个月了，暑假的时候来公司做实习生，目前是在做hadoop的运维和别的项目的后端开发以及一些日常琐事的处理。<br><a id="more"></a><br>&emsp;刚来的时候先是学习了hadoop的搭建，当时是搭建的Hadoop2.4版本（有时间学习一下3.0版本的新特性，自己试着搭建一下），再后来搭建了HA，加入了zookeeper。在此基础上，又学习了HDFS的机制与shell操作，yarn资源调度，还有mapreduce的工作机制，包括shuffle，partitioner，combiner等，并写了最基础的wordcount，现在做的也是mapreduce的日常运维与开发。后来又学习了hive表的机制与操作（写了好长一段时间sql语句，发现自己基础真的薄弱）。相关笔记：<a href="https://github.com/Wangtomorrow/Hadoop" target="_blank" rel="noopener">hadoop学习记录</a><br>&emsp;现在也算简单的hadoop入门了，还有公司的环境也是一个比较好的机会吧。这一个月的时间里在学习，熟悉公司业务、框架的过程中，发现了自己存在很大的问题。感觉自己涉猎过很多东西，其实真正用起来的时候发现自己其实真的是啥也会，啥也不会。说白了，还是看的多了，做的少了。<br>&emsp;最近一段时间，在做某项目的后端开发，hadoop的学习先暂告一段落了。就标记一下，hadoop接下来一段时间要学的东西吧。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">*hadoop3.0新特新及搭建</span><br><span class="line">*linux的操作，各种操作指令</span><br><span class="line">*hive表相关，涉及到sql</span><br><span class="line">*hadoop及HDFS深度学习研究</span><br><span class="line">*pig</span><br><span class="line">*hbase</span><br><span class="line">*redis</span><br><span class="line">*MongoDB</span><br><span class="line">*yarn相关细节</span><br><span class="line">*zookeeper相关细节</span><br><span class="line">*sqoop</span><br><span class="line">*Flume对比DataX</span><br><span class="line">*Spark全家桶</span><br><span class="line">*Storm对比Spark Streaming</span><br><span class="line">*kafka</span><br><span class="line">*JVM虚拟机</span><br><span class="line"></span><br><span class="line">*调度监控管理系统、数据应用等很多东西</span><br><span class="line"></span><br><span class="line">*大数据中涉及到的机器学习，Mahout、Spark MLLib等。</span><br><span class="line">（中文分词、自然语言处理、推荐算法、分类算法、回归算法、聚类算法、神经网络与深度学习）</span><br><span class="line"> 关于机器学习，可以先放一放。数学基础很重要。</span><br><span class="line"></span><br><span class="line">*会涉及到并发、多线程、负载均衡、分布式、云计算等问题。</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;关于大数据目前就想到这么多，很多东西还是得边学边加，实际项目中缺啥补啥吧。<br>&emsp;关于最近所做项目的后端，想了想，最近应该会去多学习kafka以及spring相关，可以借此机会给spring全家桶捣鼓一遍。<br>&emsp;以后大部分代码更新会在<a href="https://github.com/Wangtomorrow" target="_blank" rel="noopener">github</a>上，日常博客更新会在这里，csdn看内容吧，没营养的就不往那边整了。这边估计很少会有人看见吧，哈哈哈~~~<br>&emsp;写这个blog最初的想法，一是就当一个记事本了，记录自己学习上遇到的坑和笔记。二是为了督促和记录自己学习的。开始吧</p>
+        <p>&emsp;算是个简单的工具吧。需求是这样的，有套脚本是不定期跑的累积表，所以需要知道上次跑到了哪天。累积表有个day_id分区，所以直接看表分区是最后的day_id就行。<br><a id="more"></a><br>不多比比直接上代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">hdfs_path=$1</span><br><span class="line">#获取hdfs最后一个时间分区时间参数脚本</span><br><span class="line">#注意分区在第几层改第二个print的参数</span><br><span class="line">last_data_date=`hadoop fs -ls  $hdfs_path | awk &apos;&#123;print $8&#125;&apos; |  awk -F&apos;/&apos; &apos;&#123;print $8&#125;&apos; | tail -n 1`</span><br><span class="line">#echo $last_data_date </span><br><span class="line">last_date=$&#123;last_data_date##*=&#125;</span><br><span class="line">echo $last_date</span><br></pre></td></tr></table></figure></p>
+<p>获取其他信息同理。需要加别的条件就加grep。</p>
 
       
 
@@ -194,7 +194,19 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">start</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hdfs</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">脚本</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">shell</a>
         		</li>
       		
 		</ul>
@@ -213,15 +225,11 @@
   
 <nav id="article-nav">
   
-    <a href="/post/61f45dcf.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          spring学习记录(一)
-        
-      </div>
-    </a>
   
+    <a href="/post/e36ec0a7.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">hive日常使用的几个小技巧</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 
@@ -271,7 +279,7 @@
 <script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
 var gitment = new Gitment({
-  id: "https://wangtomorrow.github.io/post/9f79558f.html",
+  id: "https://wangtomorrow.github.io/post/ad3ef435.html",
   owner: 'Wangtomorrow',
   repo: 'Wangtomorrow.github.io',
   oauth: {
