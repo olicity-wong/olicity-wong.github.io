@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Olicity Forever">
 <meta property="og:description" content="&amp;emsp;长期维护中。。。。主要记录日常使用hive中会用到的小技巧">
 <meta property="og:locale" content="zh-CN.yml">
-<meta property="og:updated_time" content="2019-03-27T04:06:55.886Z">
+<meta property="og:updated_time" content="2019-03-28T07:42:25.077Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hive日常使用的几个小技巧">
 <meta name="twitter:description" content="&amp;emsp;长期维护中。。。。主要记录日常使用hive中会用到的小技巧">
@@ -191,6 +191,9 @@
 <p>这里涉及到left outer join和left semi join<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#left semi join解决的是IN/EXISTS的问题</span><br><span class="line">select a.id from a left semi join b on (a.id = b.id);</span><br><span class="line"></span><br><span class="line">#left outer join解决的是a差b的问题</span><br><span class="line">select a.id from a left outer join b on (a.id = b.id) where b.id is null;</span><br></pre></td></tr></table></figure></p>
 <h3 id="6-reduce资源申请时间"><a href="#6-reduce资源申请时间" class="headerlink" title="6.reduce资源申请时间"></a>6.reduce资源申请时间</h3><p>&emsp;为了节省时间，map未执行完时就申请reduce资源。mapreduce.job.reduce.slowstart.completedmaps，这个参数可以控制当map任务执行到哪个比例的时候就可以开始为reduce task申请资源。<br>配置在mapred-site.xml，如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;property&gt;</span><br><span class="line">    &lt;name&gt;</span><br><span class="line">         mapreduce.job.reduce.slowstart.completedmaps</span><br><span class="line">    &lt;/name&gt;</span><br><span class="line">    &lt;value&gt;</span><br><span class="line">        0.05</span><br><span class="line">    &lt;/value&gt;</span><br><span class="line">    &lt;description&gt;</span><br><span class="line">        Fraction of the number of maps in the job which should be complete before reduces are scheduled for the job.</span><br><span class="line">     &lt;/description&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure></p>
 <p>&emsp;默认map5%时申请reduce资源，开始执行reduce操作，reduce可以开始进行拷贝map结果数据和做reduce shuffle操作。<br>&emsp;mapreduce.job.reduce.slowstart.completedmaps这个参数如果设置的过低，那么reduce就会过早地申请资源，造成资源浪费；如果这个参数设置的过高，比如为1，那么只有当map全部完成后，才为reduce申请资源，开始进行reduce操作，实际上是串行执行，不能采用并行方式充分利用资源。<br>&emsp;如果map数量比较多，一般建议提前开始为reduce申请资源。</p>
+<h3 id="7-三种常用的判断空后赋值的方法"><a href="#7-三种常用的判断空后赋值的方法" class="headerlink" title="7.三种常用的判断空后赋值的方法"></a>7.三种常用的判断空后赋值的方法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">1)if(boolean testCondition, T valueTrue, T valueFalseOrNull)</span><br><span class="line">说明：当条件testCondition为TRUE时，返回valueTrue；否则返回valueFalseOrNull</span><br><span class="line">应用：select if(a is null,0,1) from table;</span><br><span class="line"></span><br><span class="line">2)COALESCE(T v1, T v2, …) </span><br><span class="line">说明：返回参数中的第一个非空值；如果所有值都为NULL，那么返回NULL</span><br><span class="line">应用：select coalesce(a,0) from table;</span><br><span class="line"></span><br><span class="line">3）case a when b then c [else f] end</span><br><span class="line">说明：如果a等于b，那么返回c；如果a等于d，那么返回e；否则返回f</span><br><span class="line">应用：select case a</span><br><span class="line">            when a is null</span><br><span class="line">            then a=0</span><br><span class="line">            else a</span><br><span class="line">            end</span><br><span class="line">      from table;</span><br></pre></td></tr></table></figure>
+<h3 id="8-hive-transform"><a href="#8-hive-transform" class="headerlink" title="8.hive transform"></a>8.hive transform</h3><p>&emsp;hive自定义函数除了支持udf还支持transform,可以引入脚本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">首先添加脚本文件</span><br><span class="line">add file /data/users/olicity/a.py;</span><br><span class="line">select transform(a, b, c, d, e) using &apos;python a.py&apos; as (f , g)</span><br><span class="line">from table;</span><br></pre></td></tr></table></figure></p>
+<p>自己没有比较过速度，不过看大佬们说是要比udf慢很多。</p>
 
       
 
@@ -265,7 +268,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-简单查询不跑MapReduce"><span class="toc-number">1.</span> <span class="toc-text">1.简单查询不跑MapReduce</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-小文件合并"><span class="toc-number">2.</span> <span class="toc-text">2.小文件合并</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-动态分区"><span class="toc-number">3.</span> <span class="toc-text">3.动态分区</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-容错"><span class="toc-number">4.</span> <span class="toc-text">4.容错</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-交集并集差集"><span class="toc-number">5.</span> <span class="toc-text">5.交集并集差集</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-reduce资源申请时间"><span class="toc-number">6.</span> <span class="toc-text">6.reduce资源申请时间</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-简单查询不跑MapReduce"><span class="toc-number">1.</span> <span class="toc-text">1.简单查询不跑MapReduce</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-小文件合并"><span class="toc-number">2.</span> <span class="toc-text">2.小文件合并</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-动态分区"><span class="toc-number">3.</span> <span class="toc-text">3.动态分区</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-容错"><span class="toc-number">4.</span> <span class="toc-text">4.容错</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-交集并集差集"><span class="toc-number">5.</span> <span class="toc-text">5.交集并集差集</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-reduce资源申请时间"><span class="toc-number">6.</span> <span class="toc-text">6.reduce资源申请时间</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-三种常用的判断空后赋值的方法"><span class="toc-number">7.</span> <span class="toc-text">7.三种常用的判断空后赋值的方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-hive-transform"><span class="toc-number">8.</span> <span class="toc-text">8.hive transform</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -397,14 +400,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">crontab</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Kafka</a>
               </li>
              
@@ -417,7 +412,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">crontab</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hdfs</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -437,26 +444,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">KafkaListener</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">yml</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hdfs</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">脚本</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">kafka</a>
               </li>
              
@@ -465,7 +452,27 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">log4j</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">KafkaListener</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">yml</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">脚本</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -482,10 +489,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">start</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">log4j</a>
               </li>
              
               <li class="article-tag-list-item">
