@@ -5,9 +5,9 @@
   <subtitle>菜鸡与代码的日常</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="https://olicity-wong.github.io/"/>
+  <link href="https://olicity-wong.com/"/>
   <updated>2019-09-19T08:21:04.808Z</updated>
-  <id>https://olicity-wong.github.io/</id>
+  <id>https://olicity-wong.com/</id>
   
   <author>
     <name>Olicity</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>hive随机抽样n条数据</title>
-    <link href="https://olicity-wong.github.io/post/70511a28.html"/>
-    <id>https://olicity-wong.github.io/post/70511a28.html</id>
+    <link href="https://olicity-wong.com/post/70511a28.html"/>
+    <id>https://olicity-wong.com/post/70511a28.html</id>
     <published>2019-09-19T06:54:19.000Z</published>
     <updated>2019-09-19T08:21:04.808Z</updated>
     
@@ -32,8 +32,8 @@
   
   <entry>
     <title>shell中获取hdfs文件路径参数</title>
-    <link href="https://olicity-wong.github.io/post/ad3ef435.html"/>
-    <id>https://olicity-wong.github.io/post/ad3ef435.html</id>
+    <link href="https://olicity-wong.com/post/ad3ef435.html"/>
+    <id>https://olicity-wong.com/post/ad3ef435.html</id>
     <published>2019-03-28T12:55:57.000Z</published>
     <updated>2019-09-18T13:11:36.918Z</updated>
     
@@ -46,16 +46,16 @@
     </summary>
     
     
-      <category term="linux" scheme="https://olicity-wong.github.io/tags/linux/"/>
+      <category term="linux" scheme="https://olicity-wong.com/tags/linux/"/>
     
-      <category term="shell" scheme="https://olicity-wong.github.io/tags/shell/"/>
+      <category term="shell" scheme="https://olicity-wong.com/tags/shell/"/>
     
   </entry>
   
   <entry>
     <title>hive日常使用的几个小技巧（长期维护中...）</title>
-    <link href="https://olicity-wong.github.io/post/d4f0dd5b.html"/>
-    <id>https://olicity-wong.github.io/post/d4f0dd5b.html</id>
+    <link href="https://olicity-wong.com/post/d4f0dd5b.html"/>
+    <id>https://olicity-wong.com/post/d4f0dd5b.html</id>
     <published>2019-03-27T08:57:03.000Z</published>
     <updated>2019-09-18T13:11:36.915Z</updated>
     
@@ -68,14 +68,14 @@
     </summary>
     
     
-      <category term="hive" scheme="https://olicity-wong.github.io/tags/hive/"/>
+      <category term="hive" scheme="https://olicity-wong.com/tags/hive/"/>
     
   </entry>
   
   <entry>
     <title>hive开发udaf和udtf</title>
-    <link href="https://olicity-wong.github.io/post/37d63f90.html"/>
-    <id>https://olicity-wong.github.io/post/37d63f90.html</id>
+    <link href="https://olicity-wong.com/post/37d63f90.html"/>
+    <id>https://olicity-wong.com/post/37d63f90.html</id>
     <published>2019-03-27T02:58:54.000Z</published>
     <updated>2019-09-18T13:11:36.914Z</updated>
     
@@ -88,16 +88,16 @@
     </summary>
     
     
-      <category term="hive" scheme="https://olicity-wong.github.io/tags/hive/"/>
+      <category term="hive" scheme="https://olicity-wong.com/tags/hive/"/>
     
-      <category term="udf" scheme="https://olicity-wong.github.io/tags/udf/"/>
+      <category term="udf" scheme="https://olicity-wong.com/tags/udf/"/>
     
   </entry>
   
   <entry>
     <title>kafka一个服务配置到不同topic的不同group</title>
-    <link href="https://olicity-wong.github.io/post/b033fd85.html"/>
-    <id>https://olicity-wong.github.io/post/b033fd85.html</id>
+    <link href="https://olicity-wong.com/post/b033fd85.html"/>
+    <id>https://olicity-wong.com/post/b033fd85.html</id>
     <published>2019-02-27T04:45:33.000Z</published>
     <updated>2019-09-18T13:44:05.974Z</updated>
     
@@ -110,14 +110,14 @@
     </summary>
     
     
-      <category term="kafka" scheme="https://olicity-wong.github.io/tags/kafka/"/>
+      <category term="kafka" scheme="https://olicity-wong.com/tags/kafka/"/>
     
   </entry>
   
   <entry>
     <title>kafka动态配置topic</title>
-    <link href="https://olicity-wong.github.io/post/bf5e9970.html"/>
-    <id>https://olicity-wong.github.io/post/bf5e9970.html</id>
+    <link href="https://olicity-wong.com/post/bf5e9970.html"/>
+    <id>https://olicity-wong.com/post/bf5e9970.html</id>
     <published>2019-01-10T19:31:59.000Z</published>
     <updated>2019-09-18T13:11:36.916Z</updated>
     
@@ -130,14 +130,14 @@
     </summary>
     
     
-      <category term="kafka" scheme="https://olicity-wong.github.io/tags/kafka/"/>
+      <category term="kafka" scheme="https://olicity-wong.com/tags/kafka/"/>
     
   </entry>
   
   <entry>
     <title>hadoop删库跑路？</title>
-    <link href="https://olicity-wong.github.io/post/bc878bda.html"/>
-    <id>https://olicity-wong.github.io/post/bc878bda.html</id>
+    <link href="https://olicity-wong.com/post/bc878bda.html"/>
+    <id>https://olicity-wong.com/post/bc878bda.html</id>
     <published>2019-01-03T13:00:01.000Z</published>
     <updated>2019-09-18T13:17:00.086Z</updated>
     
@@ -150,14 +150,14 @@
     </summary>
     
     
-      <category term="hadoop" scheme="https://olicity-wong.github.io/tags/hadoop/"/>
+      <category term="hadoop" scheme="https://olicity-wong.com/tags/hadoop/"/>
     
   </entry>
   
   <entry>
     <title>crontab使用时间参数</title>
-    <link href="https://olicity-wong.github.io/post/78cb4de.html"/>
-    <id>https://olicity-wong.github.io/post/78cb4de.html</id>
+    <link href="https://olicity-wong.com/post/78cb4de.html"/>
+    <id>https://olicity-wong.com/post/78cb4de.html</id>
     <published>2018-12-25T08:02:00.000Z</published>
     <updated>2019-09-18T13:11:36.911Z</updated>
     
@@ -170,16 +170,16 @@
     </summary>
     
     
-      <category term="linux" scheme="https://olicity-wong.github.io/tags/linux/"/>
+      <category term="linux" scheme="https://olicity-wong.com/tags/linux/"/>
     
-      <category term="shell" scheme="https://olicity-wong.github.io/tags/shell/"/>
+      <category term="shell" scheme="https://olicity-wong.com/tags/shell/"/>
     
   </entry>
   
   <entry>
     <title>log4j与hadoop的简单结合</title>
-    <link href="https://olicity-wong.github.io/post/b3d37a88.html"/>
-    <id>https://olicity-wong.github.io/post/b3d37a88.html</id>
+    <link href="https://olicity-wong.com/post/b3d37a88.html"/>
+    <id>https://olicity-wong.com/post/b3d37a88.html</id>
     <published>2018-12-25T07:00:48.000Z</published>
     <updated>2019-09-18T13:11:36.917Z</updated>
     
@@ -192,16 +192,16 @@
     </summary>
     
     
-      <category term="日志处理" scheme="https://olicity-wong.github.io/tags/%E6%97%A5%E5%BF%97%E5%A4%84%E7%90%86/"/>
+      <category term="日志处理" scheme="https://olicity-wong.com/tags/%E6%97%A5%E5%BF%97%E5%A4%84%E7%90%86/"/>
     
-      <category term="log4j" scheme="https://olicity-wong.github.io/tags/log4j/"/>
+      <category term="log4j" scheme="https://olicity-wong.com/tags/log4j/"/>
     
   </entry>
   
   <entry>
     <title>hive开发UDF及使用</title>
-    <link href="https://olicity-wong.github.io/post/96910ad9.html"/>
-    <id>https://olicity-wong.github.io/post/96910ad9.html</id>
+    <link href="https://olicity-wong.com/post/96910ad9.html"/>
+    <id>https://olicity-wong.com/post/96910ad9.html</id>
     <published>2018-10-26T03:03:04.000Z</published>
     <updated>2019-09-18T13:11:36.913Z</updated>
     
@@ -214,16 +214,16 @@
     </summary>
     
     
-      <category term="hive" scheme="https://olicity-wong.github.io/tags/hive/"/>
+      <category term="hive" scheme="https://olicity-wong.com/tags/hive/"/>
     
-      <category term="udf" scheme="https://olicity-wong.github.io/tags/udf/"/>
+      <category term="udf" scheme="https://olicity-wong.com/tags/udf/"/>
     
   </entry>
   
   <entry>
     <title>URLEncode和URLDecoder</title>
-    <link href="https://olicity-wong.github.io/post/686dbd19.html"/>
-    <id>https://olicity-wong.github.io/post/686dbd19.html</id>
+    <link href="https://olicity-wong.com/post/686dbd19.html"/>
+    <id>https://olicity-wong.com/post/686dbd19.html</id>
     <published>2018-10-17T08:22:49.000Z</published>
     <updated>2019-09-18T13:11:36.909Z</updated>
     
@@ -236,14 +236,14 @@
     </summary>
     
     
-      <category term="java" scheme="https://olicity-wong.github.io/tags/java/"/>
+      <category term="java" scheme="https://olicity-wong.com/tags/java/"/>
     
   </entry>
   
   <entry>
     <title>Kafka及Spring&amp;Kafka整合</title>
-    <link href="https://olicity-wong.github.io/post/85675a3e.html"/>
-    <id>https://olicity-wong.github.io/post/85675a3e.html</id>
+    <link href="https://olicity-wong.com/post/85675a3e.html"/>
+    <id>https://olicity-wong.com/post/85675a3e.html</id>
     <published>2018-09-13T00:05:26.000Z</published>
     <updated>2019-09-18T13:11:36.919Z</updated>
     
@@ -256,14 +256,14 @@
     </summary>
     
     
-      <category term="kafka" scheme="https://olicity-wong.github.io/tags/kafka/"/>
+      <category term="kafka" scheme="https://olicity-wong.com/tags/kafka/"/>
     
   </entry>
   
   <entry>
     <title>spring基础学习记录</title>
-    <link href="https://olicity-wong.github.io/post/db474090.html"/>
-    <id>https://olicity-wong.github.io/post/db474090.html</id>
+    <link href="https://olicity-wong.com/post/db474090.html"/>
+    <id>https://olicity-wong.com/post/db474090.html</id>
     <published>2018-09-11T13:22:50.000Z</published>
     <updated>2019-09-18T13:40:44.063Z</updated>
     
@@ -276,9 +276,9 @@
     </summary>
     
     
-      <category term="java" scheme="https://olicity-wong.github.io/tags/java/"/>
+      <category term="java" scheme="https://olicity-wong.com/tags/java/"/>
     
-      <category term="spring" scheme="https://olicity-wong.github.io/tags/spring/"/>
+      <category term="spring" scheme="https://olicity-wong.com/tags/spring/"/>
     
   </entry>
   
